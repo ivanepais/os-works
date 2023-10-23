@@ -2113,11 +2113,792 @@
 
 
 
-|| I/O Hardware (entrada y salida);
+|| I/O Hardware (entrada y salida):
+
+	Una de las tareas más importantes de un sistema operativo es gestionar varios dispositivos de E/S, como ratones, teclados, touchpads, unidades de disco, adaptadores de pantalla, dispositivos USB, pantallas con mapa de bits, LED, convertidores analógico-digitales, interruptores de encendido/apagado, conexiones de red, E/S de audio, impresoras, etc.
+
+	Un sistema de E/S es requerido para tomar una solicitud de E/S de una aplicación y enviarla al dispositivo físico, luego tomar cualquier respuesta que regrese del dispositivo y enviarla a la aplicación. 
+
+	Los dispositivos de E/S pueden dividirse en dos categorías:
+
+	    Dispositivos de bloque (Block devices):
+
+	    	Un dispositivo de bloque es aquel con el que el controlador se comunica enviando bloques enteros de datos. Por ejemplo, discos duros, cámaras USB, Disk-On-Key, etc.
+
+	    Dispositivos de caracteres (Character devices):
+
+	    	Un dispositivo de caracteres es aquel con el que el controlador se comunica enviando y recibiendo caracteres individuales (bytes, octetos). Por ejemplo, puertos serie, puertos paralelos, tarjetas de sonido, etc.
+
+
+	Controladores de dispositivos/Device Controllers
+
+		Los controladores de dispositivos son módulos de software que se pueden conectar a un sistema operativo para manejar un dispositivo en particular. 
+
+		El sistema operativo se ayuda de los controladores de dispositivos para manejar todos los dispositivos de E/S.
+
+		El controlador de dispositivo funciona como una interfaz entre un dispositivo y un controlador de dispositivo. 
+
+		Las unidades de E/S (teclado, ratón, impresora, etc.) suelen constar de un componente mecánico y un componente electrónico, donde el componente electrónico se denomina controlador de dispositivo.
+
+		Siempre hay un controlador de dispositivo y un controlador de dispositivo para que cada dispositivo se comunique con los sistemas operativos. 
+
+		Un controlador de dispositivos puede gestionar varios dispositivos. 
+
+		Como interfaz, su tarea principal es convertir el flujo de bits serie en bloques de bytes y realizar la corrección de errores necesaria.
+
+		Cualquier dispositivo conectado al ordenador se conecta mediante una clavija y una toma, y la toma se conecta a un controlador de dispositivos. 
+
+		A continuación se muestra un modelo para conectar la CPU, la memoria, los controladores y los dispositivos de E/S en el que la CPU y los controladores de dispositivos utilizan un bus común para la comunicación.
+
+
+	E/S síncrona vs. asíncrona/Synchronous vs asynchronous I/O:
+
+    	E/S síncrona: 
+
+    		En este esquema la ejecución de la CPU espera mientras la E/S procede
+
+    	E/S asíncrona: 
+
+    		la E/S se ejecuta simultáneamente a la ejecución de la CPU.
+
+
+	Comunicación con los dispositivos de E/S (Communication to I/O Devices):
+
+		La CPU debe tener una forma de pasar información hacia y desde un dispositivo de E/S. 
+
+		Hay tres enfoques disponibles para comunicarse con la CPU y el dispositivo:
+
+		    E/S de instrucción especial.
+
+		    E/S mapeada en memoria.
+
+		    Acceso directo a memoria (DMA).
+
+
+	E/S con instrucciones especiales/Special Instruction I/O:
+
+		Utiliza instrucciones de la CPU específicamente diseñadas para controlar dispositivos de E/S.
+
+		Estas instrucciones normalmente permiten enviar datos a un dispositivo de E/S o leerlos de un dispositivo de E/S.
+
+
+	E/S asignada a memoria/Memory-mapped I/O:
+
+		Cuando se utiliza la E/S mapeada en memoria, la memoria y los dispositivos de E/S comparten el mismo espacio de direcciones. 
+
+		El dispositivo se conecta directamente a ciertas ubicaciones de memoria principal para que el dispositivo de E/S pueda transferir bloques de datos a/desde la memoria sin pasar por la CPU.
+
+		Cuando se utiliza E/S mapeada en memoria, el SO asigna un buffer en memoria e informa al dispositivo de E/S que utilice ese buffer para enviar datos a la CPU. 
+
+		El dispositivo de E/S opera de forma asíncrona con la CPU e interrumpe a la CPU cuando termina.
+
+		La ventaja de este método es que cualquier instrucción que pueda acceder a la memoria puede ser utilizada para manipular un dispositivo de E/S. 
+
+		La E/S mapeada en memoria se utiliza para la mayoría de los dispositivos de E/S de alta velocidad como discos, interfaces de comunicación.
+
+
+	Acceso directo a memoria (DMA):
+
+		Los dispositivos lentos, como los teclados, generan una interrupción a la CPU principal después de transferir cada byte.
+
+		Si un dispositivo rápido como un disco generara una interrupción por cada byte, el sistema operativo pasaría la mayor parte de su tiempo gestionando estas interrupciones. 
+
+		Por eso, un ordenador típico utiliza hardware de acceso directo a memoria (DMA) para reducir esta sobrecarga.
+
+		Acceso Directo a Memoria (DMA) significa que la CPU concede al módulo de E/S autoridad para leer o escribir en memoria sin intervención. 
+
+		El propio módulo DMA controla el intercambio de datos entre la memoria principal y el dispositivo de E/S. 
+
+		La CPU sólo interviene al principio y al final del proceso.
+
+		La CPU sólo interviene al principio y al final de la transferencia y sólo se interrumpe cuando se ha transferido el bloque completo.
+
+		El Acceso Directo a Memoria necesita un hardware especial llamado controlador DMA (DMAC) que gestiona las transferencias de datos y arbitra el acceso al bus del sistema. 
+
+		Los controladores se programan con punteros de origen y destino (dónde leer/escribir los datos), contadores para realizar un seguimiento del número de bytes transferidos y configuraciones, que incluyen tipos de E/S y memoria, interrupciones y estados para los ciclos de la CPU.
+
+
+		1. Se ordena al controlador del dispositivo que transfiera los datos del disco a una dirección X del búfer.
+
+		2. A continuación, el controlador del dispositivo ordena a la controladora del disco que transfiera los datos a la memoria intermedia.
+
+		3. El controlador de disco inicia la transferencia DMA.
+
+		4. El controlador de disco envía cada byte al controlador DMA.
+
+		5. El controlador DMA transfiere los bytes al búfer, aumenta la dirección de memoria y disminuye el contador C hasta que C se convierte en cero.
+
+		6. Cuando C se convierte en cero, la DMA interrumpe a la CPU para señalar la finalización de la transferencia.
+
+
+	Polling vs Interrupciones E/S (Polling vs Interrupts I/O):
+
+		Un ordenador debe tener una forma de detectar la llegada de cualquier tipo de entrada.
+
+		Existen dos formas de hacerlo, conocidas como sondeo e interrupciones. 
+
+		Ambas técnicas permiten al procesador hacer frente a eventos que pueden ocurrir en cualquier momento y que no están relacionados con el proceso que está ejecutando en ese momento.
+
+
+	Sondeo de E/S:
+
+		El sondeo es la forma más sencilla de que un dispositivo de E/S se comunique con el procesador. 
+
+		El proceso de verificar periódicamente el estado del dispositivo para ver si es tiempo de la siguiente operación de E/S, se llama sondeo. 
+
+		El dispositivo de E/S simplemente pone la información en un registro de Estado, y el procesador debe venir y obtener la información.
+
+		La mayoría de las veces, los dispositivos no requerirán atención y cuando uno lo haga tendrá que esperar hasta que sea interrogado de nuevo por el programa de sondeo. 
+
+		Este es un método ineficiente y gran parte del tiempo del procesador se pierde en sondeos innecesarios.
+
+		Compare este método con el de un profesor que pregunta continuamente a todos los alumnos de una clase, uno tras otro, si necesitan ayuda. 
+
+		Obviamente, el método más eficiente sería que un alumno informara al profesor siempre que necesitara ayuda.
+
+
+	Interrupciones E/S (Interrupts I/O):
+
+		Un esquema alternativo para tratar las E/S es el método basado en interrupciones. 
+
+		Una interrupción es una señal al microprocesador desde un dispositivo que requiere atención.
+
+		Un controlador de dispositivo pone una señal de interrupción en el bus cuando necesita la atención de la CPU cuando la CPU recibe una interrupción, Guarda su estado actual e invoca al manejador de interrupción apropiado usando el vector de interrupción (direcciones de rutinas del SO para manejar varios eventos). 
+
+		Cuando el dispositivo que interrumpe ha sido atendido, la CPU continúa con su tarea original como si nunca hubiera sido interrumpida.		
 
 
 
+|| Programas de E/S (I/O Softwares):
+	
+	El software de E/S suele organizarse en los siguientes niveles.
 
+    Bibliotecas de nivel de usuario/User Level Libraries:
+
+    	Esto proporciona una interfaz sencilla al programa de usuario para realizar la entrada y salida. 
+
+    	Por ejemplo, stdio es una librería proporcionada por los lenguajes de programación C y C++.
+
+
+	Módulos de Nivel de Kernel/Kernel Level Modules:
+
+		Esto proporciona al controlador de dispositivo interactuar con el controlador de dispositivo y los módulos de E/S independientes del dispositivo utilizados por los controladores de dispositivo.
+
+	Hardware:
+
+		Esta capa incluye el hardware real y el controlador de hardware que interactúa con los controladores de dispositivos y hace que el hardware esté vivo.
+
+
+	Un concepto clave en el diseño de software de E/S es que debe ser independiente del dispositivo donde debe ser posible escribir programas que puedan acceder a cualquier dispositivo de E/S sin tener que especificar el dispositivo de antemano. 
+
+	Por ejemplo, un programa que lee un archivo como entrada debe ser capaz de leer un archivo en un disquete, en un disco duro o en un CD-ROM, sin tener que modificar el programa para cada dispositivo diferente.
+
+
+	Controladores de dispositivos/Device Drivers:
+
+		Los controladores de dispositivos son módulos de software que pueden conectarse a un sistema operativo para gestionar un dispositivo concreto. 
+
+		El sistema operativo se ayuda de los controladores de dispositivos para gestionar todos los dispositivos de E/S. 
+
+		Los controladores de dispositivos encapsulan el código dependiente del dispositivo e implementan una interfaz estándar de tal manera que el código contiene lecturas/escrituras de registros específicos del dispositivo. 
+
+		El controlador de dispositivo suele ser escrito por el fabricante del dispositivo y se entrega junto con éste en un CD-ROM.
+
+		Un controlador de dispositivo realiza las siguientes tareas
+
+		    Aceptar la solicitud del software independiente del dispositivo por encima de él.
+
+		    Interactuar con el controlador del dispositivo para tomar y dar E/S y realizar la gestión de errores requerida.
+
+		    Asegurarse de que la solicitud se ejecuta correctamente.
+
+
+		Cómo un controlador de dispositivo maneja una solicitud es como sigue: 
+
+			Supongamos que llega una solicitud para leer un bloque N. 
+
+			Si el controlador está inactivo en el momento en que llega una solicitud, comienza a llevarla a cabo inmediatamente.
+
+			De lo contrario, si el controlador ya está ocupado con alguna otra solicitud, coloca la nueva solicitud en la cola de solicitudes pendientes.
+
+
+	Manejadores de interrupciones/Interrupt handlers
+
+		Un gestor de interrupciones, también conocido como rutina de servicio de interrupciones/interrupt service routine (ISR), es una pieza de software o, más concretamente, una función de devolución de llamada en un sistema operativo o, más específicamente, en un controlador de dispositivo, cuya ejecución se desencadena por la recepción de una interrupción.
+
+		Cuando se produce la interrupción, el procedimiento de interrupción hace lo que tiene que hacer para gestionar la interrupción, actualiza las estructuras de datos y despierta el proceso que estaba esperando que se produjera una interrupción.
+
+		El mecanismo de interrupción acepta una dirección ─ un número que selecciona una rutina/función específica de gestión de interrupciones de entre un pequeño conjunto. En la mayoría de las arquitecturas, esta dirección es un offset almacenado en una tabla llamada tabla de vectores de interrupción. Este vector contiene las direcciones de memoria de los gestores de interrupciones especializados.
+
+
+	Software de E/S independiente del dispositivo/Device-Independent I/O Software:
+
+		La función básica del software independiente del dispositivo es realizar las funciones de E/S que son comunes a todos los dispositivos y proporcionar una interfaz uniforme al software de nivel de usuario. 
+
+		Aunque es difícil escribir software completamente independiente del dispositivo, podemos escribir algunos módulos que son comunes entre todos los dispositivos. 
+
+		La siguiente es una lista de funciones de Software de E/S independiente del dispositivo: 
+
+		    Interfaz uniforme para los controladores de dispositivos.
+
+		    Nomenclatura de dispositivos:
+
+		    	Nombres mnemotécnicos asignados a los números de dispositivo Mayor y Menor.
+
+		    Protección de dispositivos.
+
+		    Proporcionar un tamaño de bloque independiente del dispositivo.
+
+		    Almacenamiento en búfer porque los datos que salen de un dispositivo no pueden almacenarse en el destino final.
+
+		    Asignación de almacenamiento en dispositivos de bloque.
+
+		    Asignación y liberación de dispositivos dedicados.
+
+		    Notificación de errores
+
+
+	Software de E/S para el espacio de usuario/User-Space I/O Software:
+
+		Son las bibliotecas que proporcionan una interfaz más rica y simplificada para acceder a la funcionalidad del núcleo o, en última instancia, interactiva con los controladores de dispositivos. 
+
+		La mayoría del software de E/S a nivel de usuario consiste en procedimientos de librería con alguna excepción como el sistema spooling que es una forma de tratar con dispositivos de E/S dedicados en un sistema multiprogramación.
+
+		Las librerías de E/S (por ejemplo, stdio) están en el espacio de usuario para proporcionar una interfaz al SW de E/S independiente del dispositivo residente en el SO.
+
+		Por ejemplo putchar(), getchar(), printf() y scanf() son ejemplos de librerías stdio de E/S a nivel de usuario disponibles en programación C.	    
+
+
+	Subsistema de E/S del núcleo/Kernel I/O Subsystem:
+
+		El Subsistema de E/S del Kernel es responsable de proporcionar muchos servicios relacionados con la E/S. 
+
+		A continuación se enumeran algunos de los servicios prestados:
+
+	    Programación:
+
+	    	El Kernel programa un conjunto de peticiones de E/S para determinar un buen orden en el que ejecutarlas. 
+
+	    	Cuando una aplicación emite una llamada al sistema de E/S bloqueante, la petición se coloca en la cola para ese dispositivo.
+
+	    	El programador de E/S del Kernel reorganiza el orden de la cola para mejorar la eficiencia global del sistema y el tiempo medio de respuesta experimentado por las aplicaciones.
+
+
+	    Buffering:
+
+	    	El Subsistema de E/S del Kernel mantiene un área de memoria conocida como buffer que almacena datos mientras son transferidos entre dos dispositivos o entre un dispositivo con una operación de aplicación. 
+
+	    	El almacenamiento en búfer se realiza para hacer frente a un desajuste de velocidad entre el productor y el consumidor de un flujo de datos o para adaptarse entre dispositivos que tienen diferentes tamaños de transferencia de datos.
+
+
+	    Caché:
+
+	    	El núcleo mantiene una memoria caché que es una región de memoria rápida que contiene copias de datos. 
+
+	    	El acceso a la copia en caché es más eficiente que el acceso al original.
+
+
+	    Spooling y reserva de dispositivos:
+
+	    	Un spool es un búfer que almacena la salida de un dispositivo, como una impresora, que no puede aceptar flujos de datos intercalados.
+
+	    	El sistema de spooling copia los archivos de spool en cola a la impresora de uno en uno.
+
+			En algunos sistemas operativos, la cola de impresión es gestionada por un proceso demonio del sistema. 
+
+			En otros sistemas operativos, es gestionado por un hilo del núcleo.
+
+
+|| Sistema de archivos/File System:
+	
+	Archivo/File:
+
+		Un archivo es una colección con nombre de información relacionada que se graba en un almacenamiento secundario como un disco magnético, una cinta magnética o un disco óptico. 
+
+		En general, un archivo es una secuencia de bits, bytes, líneas o registros cuyo significado lo definen el creador y el usuario del archivo.
+
+
+	Estructura de los ficheros/File Structure:
+
+		La estructura de un fichero debe ajustarse a un formato requerido que el sistema operativo pueda comprender.
+
+		    Un fichero tiene una estructura definida en función de su tipo.
+
+		    Un fichero de texto es una secuencia de caracteres organizados en líneas.
+
+		    Un fichero fuente es una secuencia de procedimientos y funciones.
+
+		    Un fichero objeto es una secuencia de bytes organizados en bloques comprensibles por la máquina.
+
+		    Cuando el sistema operativo define diferentes estructuras de archivos, también contiene el código para soportar estas estructuras de archivos. 
+
+		    Unix y MS-DOS admiten un número mínimo de estructuras de archivos.
+
+
+	Tipo de archivo/File Type: 
+
+		El tipo de archivo hace referencia a la capacidad del sistema operativo para distinguir diferentes tipos de archivos, como archivos de texto, archivos fuente, archivos binarios, etc.
+
+		Muchos sistemas operativos admiten muchos tipos de archivos. Los sistemas operativos como MS-DOS y UNIX tienen los siguientes tipos de archivos
+
+
+		Ficheros ordinarios/Ordinary files:
+
+		    Son los archivos que contienen información del usuario.
+
+		    Pueden contener texto, bases de datos o programas ejecutables.
+
+		    El usuario puede realizar varias operaciones en estos archivos, como añadir, modificar, borrar o incluso eliminar el archivo completo.
+
+
+		Archivos de directorio/Directory files:
+
+		    Estos archivos contienen una lista de nombres de archivos y otra información relacionada con estos archivos.
+
+
+		Archivos especiales/Special files:
+
+		    Estos archivos también se conocen como archivos de dispositivo.
+
+		    Estos archivos representan dispositivos físicos como discos, terminales, impresoras, redes, unidades de cinta, etc.
+
+
+		Estos archivos son de dos tipos:
+
+		    Ficheros especiales de caracteres/Character special files: 
+
+		    	los datos se tratan carácter por carácter, como en el caso de los terminales o las impresoras.
+
+
+		    Archivos especiales de bloque/Block special files: 
+
+		    	los datos se manejan en bloques, como en el caso de los discos y las cintas.
+
+
+	Mecanismos de acceso a los ficheros/File Access Mechanisms:
+
+		El mecanismo de acceso a los ficheros se refiere a la forma en que se puede acceder a los registros de un fichero. 
+
+		Existen varias formas de acceder a los ficheros:
+
+		    Acceso secuencial.
+
+		    Acceso directo/aleatorio.
+
+		    Acceso secuencial indexado.
+
+
+		Acceso secuencial/Sequential access:
+
+			Un acceso secuencial es aquel en el que se accede a los registros en alguna secuencia, es decir, la información del fichero se procesa en orden, un registro tras otro. 
+
+			Este método de acceso es el más primitivo. 
+
+			Por ejemplo: Los compiladores suelen acceder a los ficheros de este modo.
+
+
+		Acceso directo/aleatorio (Direct/Random access):
+
+		    La organización de archivos de acceso aleatorio permite acceder directamente a los registros.
+
+		    Cada registro tiene su propia dirección en el archivo con la ayuda de la cual se puede acceder directamente para leer o escribir.
+
+		    No es necesario que los registros estén en secuencia dentro del archivo ni que se encuentren en ubicaciones adyacentes en el medio de almacenamiento.
+
+
+		Acceso secuencial indexado/Indexed sequential access:
+
+		    Este mecanismo se basa en el acceso secuencial.
+
+		    Se crea un índice para cada fichero que contiene punteros a varios bloques.
+
+		    El índice se busca secuencialmente y su puntero se utiliza para acceder directamente al fichero.
+
+
+	Asignación de espacio/Space Allocation:
+
+		El sistema operativo asigna espacio en disco a los archivos.
+
+		Los sistemas operativos utilizan tres formas principales para asignar espacio de disco a los archivos.
+
+		    Asignación contigua.
+
+		    Asignación vinculada.
+
+		    Asignación indexada.
+
+		    Contiguous, Linked, Indexed/Allocation.
+
+
+		Asignación contigua
+
+		    Cada archivo ocupa un espacio de dirección contiguo en el disco.
+
+		    Las direcciones de disco asignadas siguen un orden lineal.
+
+		    Fácil de implementar.
+
+		    La fragmentación externa es un problema importante con este tipo de técnica de asignación.
+
+
+		Asignación vinculada
+
+		    Cada archivo contiene una lista de enlaces a bloques de disco.
+
+		    El directorio contiene el enlace / puntero al primer bloque de un archivo.
+
+		    Sin fragmentación externa
+		    Eficaz en caso de archivo de acceso secuencial.
+
+		    Ineficiente en caso de archivo de acceso directo.
+
+
+		Asignación indexada
+
+		    Proporciona soluciones a los problemas de asignación contigua y vinculada.
+
+		    Se crea un bloque índice que contiene todos los punteros a los ficheros.
+
+		    Cada archivo tiene su propio bloque de índice que almacena las direcciones del espacio de disco ocupado por el archivo.
+
+		    El directorio contiene las direcciones de los bloques de índice de los archivos.
+
+
+
+|| Seguridad en el Sistema Operativo/OS Security
+
+	La seguridad se refiere a proporcionar un sistema de protección a los recursos del sistema informático, como la CPU, la memoria, el disco, los programas de software y, lo que es más importante, los datos/información almacenados en el sistema informático. 
+
+	Si un usuario no autorizado ejecuta un programa informático, puede causar graves daños al ordenador o a los datos almacenados en él. 
+
+	Por lo tanto, un sistema informático debe estar protegido contra accesos no autorizados, accesos maliciosos a la memoria del sistema, virus, gusanos, etc. 
+
+	En este capítulo vamos a tratar los siguientes temas.
+
+	    Autenticación.
+
+	    Contraseñas de un solo uso.
+
+	    Amenazas de programa.
+
+	    Amenazas al sistema.
+
+	    Clasificaciones de seguridad informática.
+
+
+	Autenticación/Authentication
+
+		La autenticación se refiere a la identificación de cada usuario del sistema y a la asociación de los programas en ejecución con dichos usuarios. 
+
+		Es responsabilidad del Sistema Operativo crear un sistema de protección que garantice que el usuario que ejecuta un determinado programa es auténtico. 
+
+		Los Sistemas Operativos generalmente identifican/autentican a los usuarios usando las siguientes tres formas:
+
+		    Nombre de usuario / Contraseña:
+
+		    	El usuario necesita introducir un nombre de usuario y una contraseña registrados en el sistema operativo para iniciar sesión en el sistema.
+
+
+		    Tarjeta/llave de usuario: 
+
+		    	El usuario debe introducir una tarjeta en la ranura o una llave generada por un generador de llaves en la opción proporcionada por el sistema operativo para iniciar sesión en el sistema.
+
+
+		    Atributos del usuario (huella dactilar, patrón retiniano, firma): 
+
+		    	El usuario debe introducir sus atributos a través del dispositivo de entrada designado utilizado por el sistema operativo para iniciar sesión en el sistema.
+
+
+	Contraseñas de un solo uso/One Time passwords:
+
+		Las contraseñas de un solo uso proporcionan seguridad adicional junto con la autenticación normal. 
+
+		En el sistema de contraseñas de un solo uso, se requiere una contraseña única cada vez que el usuario intenta iniciar sesión en el sistema. 
+
+		Una vez que se utiliza una contraseña de un solo uso, no se puede volver a utilizar. 
+
+		Las contraseñas de un solo uso se implementan de varias formas.
+
+		    Números aleatorios: 
+
+		    	los usuarios reciben tarjetas con números impresos junto con los alfabetos correspondientes. 
+
+		    	El sistema pide los números correspondientes a unos cuantos alfabetos elegidos al azar.
+
+
+		    Clave secreta: 
+
+		    	se proporciona al usuario un dispositivo de hardware que puede crear una identificación secreta asociada a la identificación del usuario. 
+
+		    	El sistema solicita dicha clave secreta, que debe generarse cada vez antes del inicio de sesión.
+
+
+		    Contraseña de red: 
+
+		    	algunas aplicaciones comerciales envían contraseñas de un solo uso al usuario a través del móvil/correo electrónico registrado, que debe introducir antes de iniciar sesión.
+
+
+	Amenazas del programa/Program Threats:
+
+		Los procesos del sistema operativo y el kernel realizan la tarea designada según las instrucciones. 
+
+		Si un programa de usuario hace que estos procesos realicen tareas maliciosas, entonces se conoce como Amenazas de Programa.
+
+		Uno de los ejemplos más comunes de amenaza de programa es un programa instalado en un ordenador que puede almacenar y enviar credenciales de usuario a través de la red a algún hacker.
+
+		A continuación se enumeran algunas amenazas de programa muy conocidas.
+
+		    Caballo de Troya/Trojan Horse:
+
+		    	Este tipo de programa atrapa las credenciales de inicio de sesión del usuario y las almacena para enviarlas a un usuario malintencionado que posteriormente puede iniciar sesión en el ordenador y acceder a los recursos del sistema.
+
+
+		    Trampilla/Trap Door:
+
+		    	Si un programa que está diseñado para trabajar como se requiere, tiene un agujero de seguridad en su código y realiza una acción ilegal sin el conocimiento del usuario, entonces se le llama trampilla.
+
+
+		    Bomba lógica/Logic Bomb:
+
+		    	Una bomba lógica es una situación en la que un programa se comporta mal sólo cuando se cumplen ciertas condiciones, de lo contrario funciona como un programa genuino. Es más difícil de detectar.
+
+
+		    Virus:
+
+		    	Como su nombre indica, los virus pueden replicarse en el sistema informático. 
+
+		    	Son muy peligrosos y pueden modificar/borrar archivos de usuario y bloquear sistemas. 
+
+		    	Un virus es generalmente un pequeño código incrustado en un programa. 
+
+		    	A medida que el usuario accede al programa, el virus comienza a incrustarse en otros archivos/programas y puede hacer que el sistema sea inutilizable para el usuario.
+
+
+	Amenazas al sistema/System Threats:
+
+		Las amenazas del sistema se refieren al mal uso de los servicios del sistema y las conexiones de red para poner al usuario en problemas. 
+
+		Las amenazas del sistema se pueden utilizar para lanzar amenazas de programa en una red completa denominada ataque de programa. 
+
+		Las amenazas del sistema crean un entorno en el que se hace un uso indebido de los recursos del sistema operativo y de los archivos de usuario. 
+
+		A continuación se muestra la lista de algunas amenazas del sistema bien conocidos:
+
+		    Gusano/Worm:
+
+		    	El gusano es un proceso que puede ahogar el rendimiento de un sistema mediante el uso de los recursos del sistema a niveles extremos. 
+
+		    	Un proceso Gusano genera sus múltiples copias donde cada copia utiliza los recursos del sistema, impide que todos los demás procesos para obtener los recursos necesarios. 
+
+		    	Los procesos de gusanos pueden incluso apagar una red entera.
+
+
+		    Escaneo de puertos/Port Scanning:
+
+		    	El escaneo de puertos es un mecanismo o medio por el cual un hacker puede detectar vulnerabilidades del sistema para realizar un ataque al mismo.
+
+
+		    Denegación de servicio/Denial of Service:
+
+		    	Los ataques de denegación de servicio normalmente impiden al usuario hacer un uso legítimo del sistema. 
+
+		    	Por ejemplo, es posible que un usuario no pueda utilizar Internet si la denegación de servicio ataca la configuración de contenido del navegador.
+
+
+	Clasificaciones de seguridad informática/:
+
+		Según los Criterios de Evaluación de Sistemas Informáticos de Confianza del Departamento de Defensa de EE.UU. (U.S. Department of Defense Trusted Computer System's Evaluation Criteria), existen cuatro clasificaciones de seguridad en los sistemas informáticos: A, B, C y D. 
+
+		Se trata de especificaciones ampliamente utilizadas para determinar y modelar la seguridad de los sistemas y de las soluciones de seguridad. 
+
+
+		1. Tipo A:
+
+			Nivel más alto:
+
+				Utiliza especificaciones formales de diseño y técnicas de verificación.
+
+				Otorga un alto grado de garantía de la seguridad del proceso.
+
+
+		2. Tipo B:
+
+			Proporciona un sistema de protección obligatorio. Tiene todas las propiedades de un sistema de clase C2. 
+
+			Adjunta una etiqueta de sensibilidad a cada objeto. Es de tres tipos.
+
+		    B1:
+
+		    	Mantiene la etiqueta de seguridad de cada objeto del sistema. 
+
+		    	La etiqueta se utiliza para tomar decisiones de control de acceso.
+
+
+		    B2:
+		    	Extiende las etiquetas de sensibilidad a cada recurso del sistema, como objetos de almacenamiento, soporta canales encubiertos y auditoría de eventos.
+
+
+		    B3:
+		    	Permite crear listas o grupos de usuarios para el control de acceso para conceder acceso o revocar el acceso a un objeto con nombre determinado.
+
+
+		3. Tipo C
+
+			Proporciona protección y responsabilidad del usuario mediante capacidades de auditoría. 
+
+			Es de dos tipos:
+
+		    C1:
+
+		    	Incorpora controles para que los usuarios puedan proteger su información privada y evitar que otros usuarios lean/borren accidentalmente sus datos. 
+
+		    	Las versiones UNIX son mayoritariamente de tipo Cl.
+
+
+		    C2:
+		    	Añade un control de acceso de nivel individual a las capacidades de un sistema de nivel Cl.
+
+
+		4. Tipo D:
+
+			Nivel más bajo. 
+
+			Protección mínima. 
+
+			MS-DOS, Window 3.1 entran en esta categoría.
+
+
+
+|| Linux
+
+	Linux es una de las versiones más populares del sistema operativo UNIX. Es de código abierto, ya que su código fuente está disponible libremente. 
+
+	Su uso es gratuito. 
+
+	Linux se diseñó teniendo en cuenta la compatibilidad con UNIX. 
+
+	Su lista de funcionalidades es bastante similar a la de UNIX.
+
+	
+	Componentes del sistema Linux:
+
+		El sistema operativo Linux tiene principalmente tres componentes
+
+	    Kernel:
+
+	    	Kernel es la parte central de Linux. 
+
+	    	Es responsable de todas las actividades principales de este sistema operativo. 
+
+	    	Consta de varios módulos e interactúa directamente con el hardware subyacente. 
+
+	    	El núcleo proporciona la abstracción necesaria para ocultar los detalles de hardware de bajo nivel al sistema o a los programas de aplicación.
+
+
+	    Librería del Sistema:
+
+	    	Las librerías del sistema son funciones o programas especiales mediante los cuales los programas de aplicación o las utilidades del sistema acceden a las características del Kernel. 
+
+	    	Estas bibliotecas implementan la mayoría de las funcionalidades del sistema operativo y no requieren derechos de acceso al código del módulo del núcleo.
+
+
+	    Utilidad del Sistema:
+
+	    	Los programas de Utilidad del Sistema son responsables de realizar tareas especializadas a nivel individual.
+
+
+	Diagrama de Linux: 	
+
+		Los módulos del sistema operatativo como el software del sistema, los procesos de los usuarios, las utilidades del usuario y los compiladores (system software, user process, user utility, compilers) se cargan sobre las librerias del sistema, el kernel y los módulos del kernel que interactúan con el hardware del ordenador (CPU, RAM, puertos E/S). 
+
+
+	Modo Kernel vs Modo Usuario/Kernel Mode vs User Mode:
+
+		El código del componente kernel se ejecuta en un modo privilegiado especial llamado modo kernel con acceso completo a todos los recursos del ordenador.
+
+		Este código representa un único proceso, se ejecuta en un único espacio de direcciones y no requiere ningún cambio de contexto, por lo que es muy eficiente y rápido. 
+
+		El núcleo ejecuta cada proceso y proporciona servicios de sistema a los procesos, proporciona acceso protegido al hardware a los procesos.
+
+		El código de soporte que no es necesario ejecutar en modo kernel se encuentra en la biblioteca del sistema. 
+
+		Los programas de usuario y otros programas del sistema funcionan en Modo Usuario, que no tiene acceso al hardware del sistema ni al código del núcleo. 
+
+		Los programas de usuario/utilidades utilizan las bibliotecas del sistema para acceder a las funciones del núcleo y realizar tareas de bajo nivel del sistema.
+
+
+	Características básicas:
+
+		Las siguientes son algunas de las características importantes del sistema operativo Linux.
+
+	    Portable:
+
+	    	Portabilidad significa que el software puede funcionar en diferentes tipos de hardware de la misma manera. 
+
+	    	El núcleo Linux y los programas de aplicación soportan su instalación en cualquier tipo de plataforma de hardware.
+
+
+	    Código abierto:
+
+	    	El código fuente de Linux está disponible gratuitamente y es un proyecto de desarrollo basado en la comunidad.
+
+	    	Múltiples equipos trabajan en colaboración para mejorar la capacidad del sistema operativo Linux y está en continua evolución.
+
+
+	    Multiusuario:
+
+	    	Linux es un sistema multiusuario, lo que significa que varios usuarios pueden acceder a los recursos del sistema como memoria / ram / programas de aplicación al mismo tiempo.
+
+
+	    Multiprogramación:
+
+	    	Linux es un sistema multiprogramación, lo que significa que múltiples aplicaciones pueden ejecutarse al mismo tiempo.
+
+
+	    Sistema de archivos jerárquico:
+
+	    	Linux proporciona una estructura de archivos estándar en la que se organizan los archivos de sistema y los archivos de usuario.
+
+
+	    Shell:
+
+	    	Linux proporciona un programa intérprete especial que se puede utilizar para ejecutar comandos del sistema operativo. 
+
+	    	Se puede utilizar para realizar varios tipos de operaciones, llamar a programas de aplicación, etc.
+
+
+	    Seguridad:
+
+	    	Linux proporciona seguridad al usuario mediante funciones de autenticación como protección por contraseña/acceso controlado a archivos específicos/encriptación de datos.
+
+
+	Arquitectura/Architecture:
+
+		La arquitectura de un Sistema Linux consiste en las siguientes capas.
+
+	    Capa de Hardware:
+
+	    	El Hardware consiste en todos los dispositivos periféricos (RAM/ HDD/ CPU etc).
+
+
+	    Kernel:
+
+	    	Es el componente central del Sistema Operativo, interactúa directamente con el hardware, proporciona servicios de bajo nivel a los componentes de la capa superior.
+
+
+	    Shell:
+
+	    	Interfaz del núcleo que oculta al usuario la complejidad de sus funciones.
+
+	    	El shell recibe órdenes del usuario y ejecuta las funciones del núcleo.
+
+
+	    Utilidades:
+
+	    	Programas utilitarios que proporcionan al usuario la mayoría de las funcionalidades de un sistema operativo.
+
+
+	    
 
 
 
