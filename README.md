@@ -983,4 +983,1142 @@
 
 || Procesos del Sistema Operativo
 	
+	Es básicamente un programa en ejecución. 
+
+	La ejecución de un proceso debe progresar de forma secuencial.
+
+    Un proceso se define como una entidad que representa la unidad básica de trabajo que debe implementarse en el sistema.
+
+	Para simplificarlo, escribimos nuestros programas informáticos en un archivo de texto y cuando ejecutamos este programa, se convierte en un proceso que realiza todas las tareas mencionadas en el programa.
+
+	Cuando un programa se carga en la memoria y se convierte en un proceso, puede dividirse en cuatro secciones: pila, montón, texto y datos. 
+
+
+	Diagrama de un proceso (programa) en la memoria: 
+
+		Es una pila (stack) con una estructura LIFO (Last In First Out), el ultimo elemento apilado es el primero que se completa. 
+
+
+		1. Pila: 
+
+			La pila del proceso contiene los datos temporales, como los parámetros de métodos/funciones, la dirección de retorno y las variables locales.
+
+
+		2. Heap (Montículo): 
+
+			Estructura con un elemento principal o raíz (siendo el más grande o el más pequeño) que mantiene el orden de la estructura. 
+
+			Es la memoria asignada dinámicamente a un proceso durante su tiempo de ejecución.
+		 	
+
+		3. Texto: 
+
+			Incluye la actividad actual representada por el valor del Contador de Programa y el contenido de los registros del procesador.
+
+
+		4. Datos: 
+
+			Esta sección contiene las variables globales y estáticas.
+
+
+	Programa:
+
+		Es un fragmento de código que puede ser de una sola línea o de millones de líneas. 
+
+		Un programa de ordenador lo suele escribir un programador informático en un lenguaje de programación. 
+
+		Por ejemplo, he aquí un programa sencillo escrito en lenguaje de programación C:
+
+			```
+				#include <stdio.h>
+
+				int main() {
+				   printf("Hello, World! \n");
+				   return 0;
+				}
+
+			```
+
+		Un programa informático es un conjunto de instrucciones que realizan una tarea específica cuando son ejecutadas por un ordenador. 
+
+		Si comparamos un programa con un proceso, podemos concluir que un proceso es una instancia dinámica de un programa informático.
+
+		La parte de un programa informático que realiza una tarea bien definida se conoce como algoritmo. 
+
+		Un conjunto de programas informáticos, bibliotecas y datos relacionados se denomina software.
+
+
+	Ciclo de vida de un proceso
+
+		Cuando un proceso se ejecuta, pasa por diferentes estados.
+
+		Estos estados pueden diferir en los distintos sistemas operativos, y los nombres de estos estados tampoco están estandarizados.
+
+		En general, un proceso puede tener uno de los cinco estados siguientes a la vez.
+
+
+	Diagrama de flujo de estados de un programa: 	
+
+		Muestra que un programa pasa por diferentes etapas. 
+
+
+		1. Inicio/Start
+
+			Es el estado inicial cuando se inicia/crea un proceso por primera vez.
+		 	
+
+		2. Listo/Ready
+
+			El proceso está esperando a que se le asigne un procesador. 
+
+			Los procesos listos están esperando a que el sistema operativo les asigne un procesador para poder ejecutarse. 
+
+			El proceso puede entrar en este estado después del estado de inicio o mientras se está ejecutando, pero puede ser interrumpido por el programador para asignar la CPU a otro proceso.
+		
+
+		3. Ejecutando/Running
+
+			Una vez que el proceso ha sido asignado a un procesador por el programador del sistema operativo, el estado del proceso pasa a ejecución y el procesador ejecuta sus instrucciones.
+			
+
+		4. En espera/Waiting
+
+			El proceso pasa al estado de espera si necesita esperar un recurso, como la entrada de un usuario o la disponibilidad de un archivo.
+			
+
+		5. Terminado o Salida/Terminated or Exit
+
+			Una vez que el proceso termina su ejecución, o es terminado por el sistema operativo, pasa al estado terminado donde espera a ser eliminado de la memoria principal.
+
+
+	Bloque de control de procesos (PCB)
+
+		Un Bloque de Control de Proceso es una estructura de datos mantenida por el Sistema Operativo para cada proceso. 
+
+		El PCB se identifica mediante un ID de proceso entero (PID). 
+
+		Un PCB mantiene toda la información necesaria para realizar el seguimiento de un proceso como se indica a continuación.
+
+
+		1. Estado del proceso:
+
+			El estado actual del proceso, es decir, si está listo, en ejecución, en espera o en los estados mencionados anteriormente. 
+		 	
+
+		2. Privilegios del proceso:
+
+			Es necesario para permitir/prohibir el acceso a los recursos del sistema.
+			
+
+		3. ID del proceso:
+
+			Identificación única para cada uno de los procesos en el sistema operativo.
+		 	
+
+		4. Puntero/Pointer:
+
+			Puntero al proceso padre.
+		 	
+
+		5. Contador de programa/Program counter:
+
+			El contador de programa es un puntero a la dirección de la siguiente instrucción a ejecutar para este proceso.
+		 	
+
+		6. Registros de la CPU/Entradas:
+
+			Varios registros de la CPU donde el proceso necesita ser almacenado para su ejecución en estado de ejecución.
+		 	
+
+		7. Información de programación de la CPU/CPU Scheduling Information:
+
+			Prioridad del proceso y otra información de programación necesaria para programar el proceso.
+		 	
+
+		8. Información de gestión de memoria/Memory management information:
+
+			Incluye la información de tabla de páginas, límites de memoria, tabla de segmentos en función de la memoria utilizada por el sistema operativo.
+		 	
+
+		9. Información de contabilidad/Accounting information:
+
+			Incluye la cantidad de CPU utilizada para la ejecución de procesos, límites de tiempo, ID de ejecución, etc.
+		 	
+
+		10. Información de estado de E/S. /IO status information:
+
+			Incluye una lista de los dispositivos de E/S asignados al proceso.
+
+
+		El diagrama del bloque puede verse como una pila para depende. 
+
+		La arquitectura de una PCB depende completamente del sistema operativo y puede contener información diferente en distintos sistemas operativos.
+
+		El PCB se mantiene para un proceso durante toda su vida, y se elimina una vez que el proceso termina.
+
+
+
+|| Programación de procesos del Sistema Operativo / Process Scheduling OS
+
+	La programación de procesos es la actividad del gestor de procesos (process manager) que se encarga de retirar de la CPU el proceso en ejecución y de seleccionar otro proceso en función de una estrategia determinada.
+
+	La programación de procesos es una parte esencial de los sistemas operativos multiprogramación (Multiprogramming OS). 
+
+	Estos sistemas operativos permiten cargar más de un proceso a la vez en la memoria ejecutable y que el proceso cargado comparta la CPU mediante multiplexación temporal (time multiplexing).
 	
+	
+	Existen dos categorías de programación (scheduling):
+
+    	No preferente (Non-preemptive): 
+
+    		Aquí el recurso no puede ser tomado de un proceso hasta que el proceso complete la ejecución.
+
+    		La conmutación de recursos se produce cuando el proceso en ejecución termina y pasa a un estado de espera.
+    	
+
+    	Preemptivo (Preemptive): 
+
+    		El sistema operativo asigna los recursos a un proceso durante un tiempo determinado. 
+
+    		Durante la asignación de recursos, el proceso pasa del estado en ejecución al estado listo o del estado de espera al estado listo. 
+
+    		Este cambio se produce porque la CPU puede dar prioridad a otros procesos y sustituir el proceso con mayor prioridad por el proceso en ejecución.
+
+
+	Colas de programación de procesos / Process Scheduling Queues 
+
+		El SO mantiene todos los Bloques de Control de Procesos (PCBs) en Colas de Programación de Procesos. 
+
+		El SO mantiene una cola separada para cada uno de los estados del proceso y los PCBs de todos los procesos en el mismo estado de ejecución se colocan en la misma cola. 
+
+		Cuando se cambia el estado de un proceso, su PCB se desvincula de su cola actual y se mueve a la cola de su nuevo estado.
+
+
+		El Sistema Operativo mantiene las siguientes colas importantes de programación de procesos: 
+
+
+		    Cola de trabajos/Job queue: 
+
+		    	Esta cola mantiene todos los procesos del sistema.
+
+
+		    Cola de listos/Ready queue:
+
+		    	Esta cola mantiene un conjunto de todos los procesos que residen en la memoria principal, listos y esperando para ejecutarse. 
+
+		    	Un nuevo proceso se coloca siempre en esta cola.
+
+
+		    Cola de dispositivos/Device queues: 
+
+		    	Los procesos que están bloqueados debido a la falta de disponibilidad de un dispositivo de E/S constituyen esta cola.
+
+
+    	Diagrama de flujo de la programación de procesos: 
+
+    		Presenta una cola que se va dividiendo cuando llega al CPU, espera a la entrada de datos y vuelve a Ready Queue. 
+
+	
+		El SO puede utilizar diferentes políticas para gestionar cada cola (FIFO, Round Robin, Prioridad, etc.). 
+
+		El planificador del SO (OS scheduler) determina cómo mover los procesos entre las colas de listos y de ejecución, que sólo pueden tener una entrada por núcleo de procesador en el sistema; en el diagrama anterior, se ha fusionado con la CPU.
+
+
+	Modelo de proceso de dos estados/Two-State Process Model:
+
+		El modelo de proceso de dos estados se refiere a los estados de ejecución y no ejecución que se describen a continuación:
+
+		1. En ejecución:
+
+			Cuando se crea un nuevo proceso, éste entra en el sistema en estado de ejecución.
+
+
+		2. No en ejecución:
+
+			Los procesos que no se están ejecutando se mantienen en cola, esperando su turno para ejecutarse. 
+
+			Cada entrada en la cola es un puntero a un proceso concreto. 
+
+			La cola se implementa utilizando una lista enlazada. 
+
+			El uso del despachador (the dispatcher) es el siguiente. 
+
+			Cuando se interrumpe un proceso, ese proceso se transfiere a la cola de espera. 
+
+			Si el proceso se ha completado o abortado, el proceso se descarta. 
+
+			En cualquier caso, el despachador (the dispatcher) selecciona un proceso de la cola para ejecutarlo.
+	
+
+	Programadores/Schedulers:
+
+		Los programadores son programas especiales del sistema que se encargan de la programación de los procesos de diversas maneras.
+
+		Su tarea principal es seleccionar los trabajos que se van a enviar al sistema y decidir qué proceso se va a ejecutar. 
+
+		Los programadores son de tres tipos:
+
+		    Programador a largo plazo
+		    Programador a corto plazo
+    		Programador a medio plazo
+
+
+    Programador a largo plazo:
+
+		También se denomina programador de trabajos. 
+
+		Un programador a largo plazo determina qué programas se admiten en el sistema para su procesamiento. 
+
+		Selecciona los procesos de la cola y los carga en la memoria para su ejecución. 
+
+		Los procesos se cargan en la memoria para ser programados por la CPU.
+
+		El objetivo principal del programador de trabajos (job scheduler) es proporcionar una mezcla equilibrada de trabajos, como los vinculados a la E/S y los vinculados al procesador. 
+
+		También controla el grado de multiprogramación. 
+
+		Si el grado de multiprogramación es estable, entonces la tasa media de creación de procesos debe ser igual a la tasa media de salida de procesos del sistema.
+
+		En algunos sistemas, el programador a largo plazo puede no estar disponible o ser mínimo.
+
+		Los sistemas operativos de tiempo compartido no tienen programador a largo plazo. 
+
+		Cuando un proceso cambia el estado de nuevo a listo, entonces se utiliza el planificador a largo plazo.
+
+
+	Planificador a corto plazo:
+
+		También se denomina planificador de CPU. 
+
+		Su objetivo principal es aumentar el rendimiento del sistema de acuerdo con el conjunto de criterios elegidos. 
+
+		Es el cambio del estado listo al estado en ejecución del proceso. El programador de la CPU selecciona un proceso entre los que están listos para ejecutarse y asigna la CPU a uno de ellos.
+
+		Los planificadores a corto plazo, también conocidos como despachadores, deciden qué proceso se ejecutará a continuación. 
+
+		Los programadores a corto plazo son más rápidos que los programadores a largo plazo.
+
+	
+	Programador a medio plazo:
+
+		La programación a medio plazo forma parte del intercambio (Swapping). 
+
+		Elimina los procesos de la memoria. 
+
+		Reduce el grado de multiprogramación. 
+
+		El programador a medio plazo se encarga de gestionar los procesos intercambiados.
+
+		Un proceso en ejecución puede quedar suspendido si realiza una solicitud de E/S.
+
+		Un proceso suspendido no puede avanzar hacia su finalización. 
+
+		En este caso, para eliminar el proceso de la memoria y hacer espacio para otros procesos, el proceso suspendido se mueve al almacenamiento secundario. 
+
+		Este proceso se llama swapping, y se dice que el proceso ha sido swapped out o rolled out. 
+
+		El swapping puede ser necesario para mejorar la mezcla de procesos.	
+
+
+	Comparación entre planificadores/programadores (scheduling process)
+
+		Programador a largo plazo:
+
+			Es un programador de trabajos.
+
+			La velocidad es inferior a la del programador a corto plazo.
+
+			Controla el grado de multiprogramación.
+
+			Es casi inexistente o mínimo en el sistema de tiempo compartido.
+
+			Selecciona procesos del pool y los carga en memoria para su ejecución.
+
+
+		Programador a corto plazo
+
+			Es un programador de CPU.
+
+			Es el más rápido de los otros dos.
+
+			Proporciona menos control sobre el grado de multiprogramación.
+
+			También es mínimo en el sistema de tiempo compartido.
+
+			Selecciona los procesos que están listos para ejecutarse.
+
+
+		Planificador a medio plazo:
+
+			Es un planificador de intercambio de procesos.
+
+			Su velocidad se encuentra entre los planificadores de corto y largo plazo.
+
+			Reduce el grado de multiprogramación.
+
+			Forma parte de los sistemas de tiempo compartido.
+
+			Puede reintroducir el proceso en memoria y continuar la ejecución.
+
+
+	Conmutación de contexto/Context Switching
+
+		Un conmutador de contexto es el mecanismo para almacenar y restaurar el estado o contexto de una CPU en el bloque de control de procesos, de forma que la ejecución de un proceso pueda reanudarse desde el mismo punto en un momento posterior. 
+
+		Mediante esta técnica, un conmutador de contexto permite que varios procesos compartan una única CPU. 
+
+		El cambio de contexto es una parte esencial de las características de un sistema operativo multitarea.
+
+		Cuando el programador cambia la CPU de la ejecución de un proceso a la ejecución de otro, el estado del proceso en ejecución actual se almacena en el bloque de control del proceso. 
+
+		Después de esto, el estado del proceso que se ejecutará a continuación se carga desde su propio PCB y se utiliza para configurar el PC, los registros, etc. 
+
+		En ese momento, el segundo proceso puede empezar a ejecutarse.
+
+		Los cambios de contexto son intensivos desde el punto de vista computacional, ya que el estado de los registros y la memoria debe guardarse y restaurarse. 
+
+		Para evitar el tiempo de cambio de contexto, algunos sistemas de hardware emplean dos o más conjuntos de registros del procesador. 
+
+
+		Diagrama de stack CPU/Context Switching:
+
+			El CPU apila todos los procesos. Activa, los salva en un estado para restaurarlos en caso de necesitarlos. 
+
+
+		Cuando se conmuta el proceso, se almacena la siguiente información para su uso posterior.
+
+	    	Contador de programa.
+
+	    	Información de programación.
+
+	    	Valor del registro base y límite.
+
+	    	Registro utilizado actualmente.
+
+	    	Estado cambiado.
+
+	    	Información de estado de E/S.
+
+	    	Información contable.
+
+
+
+|| Algoritmos de programación/Scheduling algorithms
+
+
+	Un Programador de Procesos (Process Scheduler) programa diferentes procesos para ser asignados a la CPU basándose en algoritmos de programación particulares. 
+
+	Hay seis algoritmos populares de programación de procesos que vamos a discutir en este capítulo.
+
+
+	    Programación por orden de llegada (FCFS).
+
+	    Programación del trabajo más corto al siguiente (SJN).
+
+	    Programación por prioridades.
+
+	    Tiempo restante más corto.
+
+	    Programación Round Robin (RR).
+
+	    Programación de colas de varios niveles.
+
+
+	Estos algoritmos pueden ser no preferentes o preferentes (non-preemptive or preemptive). 
+
+	Los algoritmos no preferentes están diseñados de tal forma que, una vez que un proceso entra en estado de ejecución, no puede ser adelantado hasta que complete el tiempo que se le ha asignado, mientras que la programación preferente se basa en la prioridad, por lo que un planificador puede adelantar un proceso en ejecución de baja prioridad en cualquier momento cuando un proceso de alta prioridad entra en estado listo.
+
+
+	Por orden de llegada/First Come First Serve (FCFS)
+
+    	Los trabajos se ejecutan por orden de llegada.
+
+    	Se trata de un algoritmo de planificación no preferente y preferente.
+
+    	Fácil de entender e implementar.
+   		Su implementación se basa en la cola FIFO.
+
+    	Su rendimiento es bajo, ya que el tiempo medio de espera es elevado.
+
+
+    	Tabla o vista de procesos: 
+
+    		Tenemos cuatro columnas: ID o nombre del proceso, hora de llegada (arrival time), hora de ejecución (execute time) y service time (tiempo de servicio)
+
+    		Aumentará el tiempo de espera de cada proceso. 
+
+
+    Trabajo más corto determina el siguiente/Shortest Job Next (SJN)
+
+	    También conocido como trabajo más corto primero o SJF.
+
+	    Se trata de un algoritmo de programación no preferente y preferente.
+
+	    Es el mejor método para minimizar el tiempo de espera.
+
+	    Fácil de implementar en sistemas por lotes en los que el tiempo de CPU necesario se conoce de antemano.
+
+	    Imposible de aplicar en sistemas interactivos en los que no se conoce el tiempo de CPU necesario.
+
+	    El procesador debe saber de antemano cuánto tiempo tardará el proceso.
+
+
+	Programación por prioridades/Priority Based Scheduling
+
+	    La programación por prioridades es un algoritmo no preferente y uno de los algoritmos de programación más comunes en los sistemas por lotes.
+
+	    A cada proceso se le asigna una prioridad. 
+
+	    El proceso con mayor prioridad se ejecuta primero y así sucesivamente.
+
+	    Los procesos con la misma prioridad se ejecutan por orden de llegada.
+
+	    La prioridad puede decidirse en función de los requisitos de memoria, tiempo o cualquier otro requisito de recursos.
+
+		Aquí consideramos que 1 es la prioridad más baja.
+
+
+	Tiempo restante más corto/Shortest Remaining Time
+
+	    El tiempo restante más corto (SRT) es la versión preferente del algoritmo SJN.
+
+	    El procesador se asigna al trabajo más próximo a la finalización, pero puede ser adelantado por un trabajo más reciente con un tiempo más corto hasta la finalización.
+
+	    Imposible de aplicar en sistemas interactivos en los que no se conoce el tiempo de CPU necesario.
+
+	    Suele utilizarse en entornos por lotes en los que hay que dar preferencia a los trabajos cortos.
+
+
+	Programación Round Robin/Round Robin Scheduling
+
+	    Round Robin es el algoritmo de programación de procesos preferente.
+
+	    A cada proceso se le proporciona un tiempo fijo de ejecución, que se denomina quantum.
+
+	    Una vez que un proceso se ejecuta durante un periodo de tiempo determinado, se le da preferencia y otro proceso se ejecuta durante un periodo de tiempo determinado.
+
+	    El cambio de contexto se utiliza para guardar los estados de los procesos adelantados.
+
+
+	Programación de colas de varios niveles
+
+		Las colas de varios niveles no son un algoritmo de programación independiente. 
+		
+		Hacen uso de otros algoritmos existentes para agrupar y programar trabajos con características comunes.
+
+		    Se mantienen múltiples colas para procesos con características comunes.
+
+		    Cada cola puede tener sus propios algoritmos de programación.
+
+		    Se asignan prioridades a cada cola.
+
+		Por ejemplo, los trabajos vinculados a la CPU pueden programarse en una cola y todos los trabajos vinculados a la E/S en otra cola. 
+
+		A continuación, el Programador de Procesos selecciona alternativamente los trabajos de cada cola y los asigna a la CPU en función del algoritmo asignado a la cola.    
+
+
+
+|| Multiproceso/Multi-Threading
+
+
+	Un hilo es un flujo de ejecución a través del código del proceso, con su propio contador de programa que mantiene la pista de qué instrucción ejecutar a continuación, registros de sistema que mantienen sus variables de trabajo actuales, y una pila que contiene el historial de ejecución.
+
+	Un subproceso comparte con sus compañeros información como el segmento de código, el segmento de datos y los archivos abiertos. 
+
+	Cuando un hilo altera un elemento de memoria del segmento de código, todos los demás hilos lo ven.
+
+	Un hilo también se denomina proceso ligero. 
+
+	Los hilos proporcionan una forma de mejorar el rendimiento de la aplicación a través del paralelismo.
+
+	Los hilos representan un enfoque de software para mejorar el rendimiento del sistema operativo mediante la reducción de la sobrecarga.
+
+	Cada hilo pertenece exactamente a un proceso y ningún hilo puede existir fuera de un proceso. 
+
+	Cada hilo representa un flujo de control independiente. 
+
+	Los hilos se han utilizado con éxito en la implementación de servidores de red y servidores web. 
+
+	También proporcionan una base adecuada para la ejecución paralela de aplicaciones en multiprocesadores de memoria compartida. 
+
+
+	Diagrama sobre el funcionamiento de un proceso monohilo y uno multihilo: 
+
+		En el proceso monohilo vemos que todo el proceso se desarrolla sobre un solo hilo y el el multithilo la información puede multiplicarse. 
+
+
+	Diferencia entre proceso e hilo: 
+
+		Proceso:
+
+			El proceso es pesado o consume muchos recursos.
+
+			El cambio de proceso requiere interacción con el sistema operativo.
+
+			En entornos de procesamiento múltiple (multiple processing environments), cada proceso ejecuta el mismo código pero tiene sus propios recursos de memoria y archivos.
+
+			Si un proceso se bloquea, ningún otro proceso puede ejecutarse hasta que el primero se desbloquee.
+
+			Los procesos múltiples que no utilizan hilos consumen más recursos.
+
+			En los procesos múltiples, cada proceso funciona independientemente de los demás.
+
+
+		Hilos: 
+
+			Los hilos son ligeros y consumen menos recursos que los procesos.
+
+			El cambio de hilo no necesita interactuar con el sistema operativo.
+
+			Todos los hilos pueden compartir el mismo conjunto de archivos abiertos, procesos hijos.
+
+			Mientras un hilo está bloqueado y esperando, un segundo hilo en la misma tarea puede ejecutarse.
+
+			Los procesos con múltiples hilos utilizan menos recursos.
+
+			Un hilo puede leer, escribir o cambiar los datos de otro hilo.
+
+
+	Ventajas de los hilos:
+
+	    Los hilos minimizan el tiempo de cambio de contexto.
+
+	    El uso de hilos proporciona concurrencia dentro de un proceso.
+
+	    Comunicación eficiente.
+
+	    Es más económico crear y cambiar de contexto hilos.
+
+	    Los hilos permiten la utilización de arquitecturas multiprocesador a una mayor escala y eficiencia.
+
+
+	Tipos de hilos:
+
+		Se implementan de dos formas:
+
+	    Hilos a nivel de usuario:
+
+	    	Hilos gestionados por el usuario.
+
+
+	    Hilos a nivel de núcleo:	
+
+	    	Hilos gestionados por el sistema operativo que actúan sobre el núcleo, un núcleo del sistema operativo.
+
+
+	Hilos a nivel de usuario
+
+		En este caso, el núcleo de gestión de hilos no es consciente de la existencia de hilos. 
+
+		La librería de hilos contiene código para crear y destruir hilos, para pasar mensajes y datos entre hilos, para programar la ejecución de hilos y para guardar y restaurar contextos de hilos. 
+
+		La aplicación se inicia con un único subproceso.
+
+
+		Diagrama: 	
+
+			Sobre el CPU se ejecuta el kernel y este provee un espacio para que el usuario ejecute procesos multihilo.  
+
+
+		Ventajas:
+
+    		La conmutación de hilos no requiere privilegios de modo Kernel.
+
+    		El hilo de nivel de usuario puede ejecutarse en cualquier sistema operativo.
+
+    		La programación puede ser específica de la aplicación en el hilo de nivel de usuario.
+
+    		Los hilos a nivel de usuario son rápidos de crear y gestionar.
+
+
+		Desventajas:
+
+			En un sistema operativo típico, la mayoría de las llamadas al sistema son de bloqueo.
+
+			Las aplicaciones multihilo no pueden aprovechar las ventajas del multiprocesamiento.
+
+
+	Hilos a nivel de núcleo:
+
+		En este caso, la gestión de hilos la realiza el Kernel.
+
+		No hay código de gestión de hilos en el área de aplicación.
+
+		Los hilos del Kernel son soportados directamente por el sistema operativo. 
+
+		Cualquier aplicación puede ser programada para ser multihilo.
+
+		Todos los hilos dentro de una aplicación son soportados dentro de un único proceso.
+
+		El Kernel mantiene información de contexto para el proceso como un todo y para los hilos individuales dentro del proceso.
+
+		La programación por parte del Kernel se realiza en base a hilos. 
+
+		El Kernel realiza la creación, programación y gestión de hilos en el espacio del Kernel. 
+
+		La creación y gestión de los hilos del núcleo suele ser más lenta que la de los hilos de usuario.
+
+
+		Ventajas:
+
+		   	El Kernel puede programar simultáneamente múltiples hilos del mismo proceso en múltiples procesos.
+
+		    Si un hilo de un proceso se bloquea, el Kernel puede programar otro hilo del mismo proceso.
+
+			Las propias rutinas del Kernel pueden ser multihilo.
+
+
+		Desventajas:
+
+		    Los hilos del Kernel son generalmente más lentos de crear y gestionar que los hilos de usuario.
+
+		    La transferencia de control de un hilo a otro dentro del mismo proceso requiere un cambio de modo en el Kernel.
+
+
+	Modelos multihilo:
+
+		Algunos sistemas operativos ofrecen una función combinada de subprocesos a nivel de usuario y subprocesos a nivel de núcleo.
+
+		Solaris es un buen ejemplo de este enfoque combinado. 
+
+		En un sistema combinado, varios subprocesos de la misma aplicación pueden ejecutarse en paralelo en varios procesadores y no es necesario que una llamada al sistema bloqueante bloquee todo el proceso. 
+
+		Los modelos de multithreading son de tres tipos
+
+		    Relación muchos a muchos.
+		    Relación muchos a uno.
+		    Relación uno a uno.
+
+
+	Modelo muchos a muchos:
+
+		El modelo muchos a muchos multiplexa cualquier número de hilos de usuario en un número igual o menor de hilos de núcleo.
+
+		El siguiente diagrama muestra el modelo de hilos muchos a muchos donde 6 hilos de nivel usuario se multiplexan con 6 hilos de nivel kernel. 
+
+		En este modelo, los desarrolladores pueden crear tantos subprocesos de usuario como sea necesario y los correspondientes subprocesos del núcleo pueden ejecutarse en paralelo en una máquina multiprocesador. 
+
+		Este modelo proporciona la mejor precisión en concurrencia y cuando un hilo realiza una llamada al sistema bloqueante, el núcleo puede programar otro hilo para su ejecución.
+
+
+	Diferencia entre hilo de nivel de usuario y de nivel de núcleo:
+
+		Hilo a nivel de usuario:
+
+			Los subprocesos a nivel de usuario son más rápidos de crear y gestionar.
+
+			Se implementan mediante una biblioteca de hilos a nivel de usuario.
+
+			Los hilos a nivel de usuario son genéricos y pueden ejecutarse en cualquier sistema operativo.
+
+			Las aplicaciones multihilo no pueden aprovechar las ventajas del multiprocesamiento.
+
+
+		Hilo a nivel de núcleo:
+
+			Los hilos a nivel de núcleo son más lentos de crear y gestionar.
+
+			El sistema operativo soporta la creación de hilos a nivel de Kernel.
+
+			Los hilos a nivel de núcleo son específicos del sistema operativo.
+
+			Las propias rutinas del núcleo pueden ser multihilo.
+
+
+
+|| Gestión de memoria en el Sistema Operativo 
+
+	La gestión de memoria es la funcionalidad de un sistema operativo que maneja o gestiona la memoria primaria y mueve los procesos de un lado a otro entre la memoria principal y el disco durante la ejecución. 
+
+	La gestión de memoria realiza un seguimiento de todas y cada una de las posiciones de memoria, independientemente de si está asignada a algún proceso o está libre. 
+
+	Comprueba cuánta memoria debe asignarse a los procesos. 
+
+	Decide qué proceso obtendrá memoria y en qué momento. 
+
+	Realiza un seguimiento cada vez que se libera o se desasigna memoria y, en consecuencia, actualiza el estado.
+
+
+	Espacio de Direcciones de Proceso/Process Address Space:
+
+		El espacio de direcciones del proceso es el conjunto de direcciones lógicas a las que un proceso hace referencia en su código. 
+
+		Por ejemplo, cuando se utiliza el direccionamiento de 32 bits, las direcciones pueden ir de 0 a 0x7fffffff; es decir, 2^31 números posibles, para un tamaño teórico total de 2 gigabytes.
+
+		El sistema operativo se encarga de asignar las direcciones lógicas a direcciones físicas en el momento de la asignación de memoria al programa. 
+
+		Hay tres tipos de direcciones que se utilizan en un programa antes y después de asignar la memoria:
+
+
+	Direcciones de memoria (Memory Addresses) y descripción:
+
+		1. Direcciones simbólicas
+
+			Son las direcciones utilizadas en un código fuente. 
+
+			Los nombres de variables, constantes y etiquetas de instrucciones son los elementos básicos del espacio de direcciones simbólicas.	
+
+
+		2. Direcciones relativas
+
+			En el momento de la compilación, un compilador convierte las direcciones simbólicas en direcciones relativas.
+		 	
+
+		3. Direcciones físicas
+
+			El cargador genera estas direcciones en el momento en que se carga un programa en la memoria principal.
+
+
+		Las direcciones virtuales y físicas son las mismas en los esquemas de vinculación de direcciones en tiempo de compilación y en tiempo de carga.
+
+		Las direcciones virtuales y físicas difieren en el esquema de vinculación de direcciones en tiempo de ejecución.
+
+		El conjunto de todas las direcciones lógicas generadas por un programa se denomina espacio de direcciones lógicas (logical address space). 
+
+		El conjunto de todas las direcciones físicas correspondientes a estas direcciones lógicas se denomina espacio de direcciones físicas (physical address space).
+
+		La unidad de gestión de memoria (MMU), que es un dispositivo de hardware, realiza la asignación en tiempo de ejecución de la dirección virtual a la física. 
+
+		La MMU utiliza el siguiente mecanismo para convertir la dirección virtual en dirección física.
+
+		    El valor del registro base se añade a cada dirección generada por un proceso de usuario, que se trata como offset en el momento en que se envía a la memoria. 
+
+		    Por ejemplo, si el valor del registro base es 10000, entonces un intento del usuario de utilizar la ubicación de dirección 100 se reasignará dinámicamente a la ubicación 10100.
+
+		    El programa de usuario trata con direcciones virtuales; nunca ve las direcciones físicas reales.
+
+
+	Carga estática frente a carga dinámica/Static vs Dynamic Loading:
+
+		La elección entre Carga Estática o Dinámica debe hacerse en el momento de desarrollar el programa informático. 
+
+		Si tiene que cargar su programa estáticamente, entonces en el momento de la compilación, los programas completos se compilarán y enlazarán sin dejar ninguna dependencia de programas o módulos externos. 
+
+		El enlazador combina el programa objeto con otros módulos objeto necesarios en un programa absoluto, que también incluye direcciones lógicas.
+
+		Si estás escribiendo un programa cargado dinámicamente, entonces tu compilador compilará el programa y para todos los módulos que quieras incluir dinámicamente, sólo se proporcionarán referencias y el resto del trabajo se hará en el momento de la ejecución.
+
+		En el momento de la carga, con la carga estática (static loading), el programa absoluto (y los datos) se cargan en memoria para que comience la ejecución.
+
+		Si se utiliza la carga dinámica (dynamic loading), las rutinas dinámicas (dynamic routines) de la biblioteca se almacenan en disco en forma reubicable y se cargan en memoria sólo cuando el programa las necesita.
+
+
+	Vinculación estática frente a dinámica/Static vs Dynamic Linking: 
+
+		Como se ha explicado anteriormente, cuando se utiliza el enlazado estático, el enlazador combina todos los demás módulos que necesita un programa en un único programa ejecutable para evitar cualquier dependencia en tiempo de ejecución.
+
+		Cuando se utiliza el enlazado dinámico, no es necesario enlazar el módulo o biblioteca real con el programa, sino que se proporciona una referencia al módulo dinámico en el momento de la compilación y el enlazado. 
+
+		Las bibliotecas de enlace dinámico(Dynamic Link Libraries/DLL) en Windows y los objetos compartidos en Unix son buenos ejemplos de bibliotecas dinámicas.
+
+
+	Intercambio/Swapping:
+
+		El intercambio es un mecanismo por el cual un proceso puede ser intercambiado temporalmente de la memoria principal (o moverse) al almacenamiento secundario (disco) y poner esa memoria a disposición de otros procesos. 
+
+		Más adelante, el sistema vuelve a intercambiar el proceso desde el almacenamiento secundario a la memoria principal.
+
+		Aunque el rendimiento suele verse afectado por el proceso de intercambio, ayuda a ejecutar múltiples y grandes procesos en paralelo y esa es la razón por la que el intercambio también se conoce como una técnica de compactación de memoria.
+
+		El tiempo total que tarda el proceso de intercambio incluye el tiempo que se tarda en mover todo el proceso a un disco secundario y luego copiar el proceso de nuevo a la memoria, así como el tiempo que el proceso tarda en recuperar la memoria principal.
+
+		Supongamos que el proceso de usuario tiene un tamaño de 2048 KB y que en un disco duro estándar en el que se realizará el intercambio tiene una velocidad de transferencia de datos de alrededor de 1 MB por segundo. 
+
+		La transferencia real del proceso 1000K hacia o desde la memoria tardará
+
+		2048KB / 1024KB por segundo
+		= 2 segundos
+		= 2000 milisegundos
+
+		Teniendo en cuenta el tiempo de entrada y salida, tardará 4000 milisegundos más otros gastos generales en los que el proceso compite por recuperar la memoria principal.
+
+
+	Asignación de memoria/Memory Allocation:
+
+		La memoria principal suele tener dos particiones
+
+		    Memoria baja/Low Memory:
+
+		    	El sistema operativo reside en esta memoria.
+
+		    Memoria Alta/High Memory:
+
+		    	Los procesos de usuario se alojan en la memoria alta.
+
+		El sistema operativo utiliza el siguiente mecanismo de asignación de memoria.
+
+
+		Asignación de partición única/Single-partition allocation:
+
+			En este tipo de asignación, se utiliza el esquema de registro de reubicación para proteger a los procesos de usuario entre sí, y de cambiar el código y los datos del sistema operativo. 
+
+			El registro de reubicación contiene el valor de la dirección física más pequeña, mientras que el registro límite contiene el rango de direcciones lógicas. 
+
+			Cada dirección lógica debe ser menor que el registro límite.
+
+
+		Asignación de particiones múltiples/Multiple-partition allocation: 
+
+			En este tipo de asignación, la memoria principal se divide en un número de particiones de tamaño fijo donde cada partición debe contener sólo un proceso.
+
+			Cuando una partición está libre, se selecciona un proceso de la cola de entrada y se carga en la partición libre. 
+
+			Cuando el proceso termina, la partición queda disponible para otro proceso.
+
+
+	Fragmentación
+
+		A medida que los procesos se cargan y se eliminan de la memoria, el espacio de memoria libre se rompe en pequeños trozos. 
+
+		A veces ocurre que los procesos no pueden asignarse a bloques de memoria teniendo en cuenta su pequeño tamaño y los bloques de memoria quedan sin utilizar. 
+
+		Este problema se conoce como Fragmentación.
+
+		Fragmentación externa
+
+			El espacio total de memoria es suficiente para satisfacer una petición o para que resida en él un proceso, pero no es contiguo, por lo que no se puede utilizar.
+
+
+		Fragmentación interna
+
+			El bloque de memoria asignado a un proceso es mayor. Alguna porción de memoria queda sin utilizar, ya que no puede ser utilizada por otro proceso.
+
+
+		El siguiente diagrama muestra cómo la fragmentación puede causar un desperdicio de memoria y cómo se puede utilizar una técnica de compactación para crear más memoria libre a partir de la memoria fragmentada.
+
+		La fragmentación externa puede reducirse mediante la compactación o barajando el contenido de la memoria para colocar toda la memoria libre junta en un gran bloque. 
+
+		Para que la compactación sea factible, la reubicación debe ser dinámica.
+
+		La fragmentación interna puede reducirse asignando efectivamente la partición más pequeña pero lo suficientemente grande para el proceso.
+
+
+	Paginación/Paging
+
+		Un ordenador puede direccionar más memoria que la cantidad físicamente instalada en el sistema. 
+
+		Esta memoria extra se llama en realidad memoria virtual y es una sección de un disco que está configurada para emular la RAM del ordenador. 
+
+		La técnica de paginación juega un papel importante en la implementación de la memoria virtual.
+
+		La paginación es una técnica de gestión de memoria en la que el espacio de direcciones del proceso se divide en bloques del mismo tamaño llamados páginas (el tamaño es potencia de 2, entre 512 bytes y 8192 bytes). 
+
+		El tamaño del proceso se mide en número de páginas.
+
+		Del mismo modo, la memoria principal se divide en pequeños bloques de tamaño fijo de memoria (física) llamados marcos y el tamaño de un marco se mantiene igual que el de una página para tener una utilización óptima de la memoria principal y evitar la fragmentación externa.
+
+
+	Traducción de direcciones/Address Translation:
+
+		La dirección de página se denomina dirección lógica y está representada por el número de página y el offset.
+
+		Dirección lógica = Número de página + offset de página/Logical Address = Page number + page offset.
+
+		La dirección de trama se denomina dirección física y se representa por un número de trama y el offset.
+
+		Dirección física = Número de trama + desplazamiento de página/Physical Address = Frame number + page offset.
+
+		Una estructura de datos llamada tabla de mapeo de páginas se utiliza para mantener un registro de la relación entre una página de un proceso y un marco en la memoria física.
+
+
+		Cuando el sistema asigna un marco a cualquier página, traduce esta dirección lógica en una dirección física y crea una entrada en la tabla de páginas que se utilizará durante la ejecución del programa.
+
+		Cuando se va a ejecutar un proceso, sus páginas correspondientes se cargan en cualquier marco de memoria disponible. 
+
+		Supongamos que tenemos un programa de 8Kb pero nuestra memoria sólo puede acomodar 5Kb en un momento dado, entonces el concepto de paginación entrará en escena. 
+
+		Cuando un ordenador se queda sin RAM, el sistema operativo (SO) mueve las páginas de memoria ociosas o no deseadas a la memoria secundaria para liberar RAM para otros procesos y las devuelve cuando el programa las necesita.
+
+		Este proceso continúa durante toda la ejecución del programa en el que el sistema operativo sigue eliminando páginas ociosas de la memoria principal y las escribe en la memoria secundaria y las devuelve cuando el programa las necesita.
+
+
+		Ventajas y desventajas de la paginación:
+
+		    La paginación reduce la fragmentación externa, pero sigue sufriendo la fragmentación interna.
+
+		    La paginación es simple de implementar y se asume como una técnica eficiente de gestión de memoria.
+
+		    Debido al mismo tamaño de las páginas y los marcos, el intercambio es muy fácil.
+
+		    La tabla de páginas requiere espacio de memoria extra, por lo que puede no ser buena para un sistema con poca RAM.
+
+
+	Segmentación:
+
+		La segmentación es una técnica de gestión de memoria en la que cada trabajo se divide en varios segmentos de diferentes tamaños, uno para cada módulo que contiene piezas que realizan funciones relacionadas. 
+
+		Cada segmento es en realidad un espacio de direcciones lógicas diferente del programa.
+
+		Cuando se va a ejecutar un proceso, sus segmentaciones correspondientes se cargan en memoria no contigua, aunque cada segmento se carga en un bloque contiguo de la memoria disponible.
+
+		La gestión de la memoria de segmentación funciona de forma muy similar a la paginación, pero en este caso los segmentos son de longitud variable, mientras que en la paginación las páginas son de tamaño fijo.
+
+		Un segmento de programa contiene la función principal del programa, funciones de utilidad, estructuras de datos, etc. 
+
+		El sistema operativo mantiene una tabla de asignación de segmentos para cada proceso y una lista de bloques de memoria libres junto con los números de segmento, su tamaño y las posiciones de memoria correspondientes en la memoria principal. 
+
+		Para cada segmento, la tabla almacena la dirección de inicio del segmento y la longitud del segmento. 
+
+		Una referencia a una posición de memoria incluye un valor que identifica un segmento y un offset.
+
+
+
+|| Memoria Virtual/Virtual Memory
+	
+	Un ordenador puede direccionar más memoria que la cantidad instalada físicamente en el sistema. 
+
+	Esta memoria extra se llama en realidad memoria virtual y es una sección del disco duro configurada para emular la memoria RAM del ordenador.
+
+	La principal ventaja visible de este esquema es que los programas pueden ser más grandes que la memoria física. 
+
+	La memoria virtual sirve para dos cosas. 
+
+	En primer lugar, nos permite ampliar el uso de la memoria física mediante el disco. 
+
+	Segundo, nos permite tener protección de memoria, porque cada dirección virtual es traducida a una dirección física.
+
+	A continuación se presentan las situaciones en las que no es necesario cargar todo el programa en la memoria principal.
+
+	    Las rutinas de tratamiento de errores escritas por el usuario se utilizan sólo cuando se produce un error en los datos o en el cálculo.
+
+	    Ciertas opciones y características de un programa pueden utilizarse raramente.
+
+	    A muchas tablas se les asigna una cantidad fija de espacio de direcciones aunque en realidad sólo se utilice una pequeña parte de la tabla.
+
+	    La capacidad de ejecutar un programa que sólo está parcialmente en memoria contrarrestaría muchos beneficios.
+
+	    Se necesitaría un menor número de E/S para cargar o intercambiar cada programa de usuario en memoria.
+
+	    Un programa ya no estaría limitado por la cantidad de memoria física disponible.
+
+	    Cada programa de usuario podría ocupar menos memoria física, se podrían ejecutar más programas al mismo tiempo, con el correspondiente aumento de la utilización de la CPU y del rendimiento.
+
+		En los microprocesadores modernos destinados a un uso general, el hardware lleva incorporada una unidad de gestión de memoria (memory management unit), o MMU. 
+
+		El trabajo de la MMU consiste en traducir las direcciones virtuales en direcciones físicas. A continuación se ofrece un ejemplo básico
+
+		La memoria virtual se suele implementar mediante paginación por demanda. 
+
+		También puede implementarse en un sistema de segmentación. 
+
+		La segmentación por demanda también puede utilizarse para proporcionar memoria virtual.
+
+
+	Paginación bajo demanda/Demand Paging:
+
+		Un sistema de paginación bajo demanda es bastante similar a un sistema de paginación con intercambio en el que los procesos residen en la memoria secundaria y las páginas se cargan sólo bajo demanda, no por adelantado. 
+
+		Cuando se produce un cambio de contexto, el sistema operativo no copia ninguna de las páginas del programa anterior en el disco ni ninguna de las páginas del nuevo programa en la memoria principal.
+
+		En su lugar, simplemente comienza a ejecutar el nuevo programa después de cargar la primera página y obtiene las páginas de ese programa a medida que son referenciadas.
+
+		Mientras se ejecuta un programa, si el programa hace referencia a una página que no está disponible en la memoria principal porque se ha intercambiado hace poco, el procesador trata esta referencia de memoria no válida como un fallo de página (Page Fault) y transfiere el control del programa al sistema operativo para solicitar que la página vuelva a la memoria.
+
+		Ventajas:
+
+		    Amplia memoria virtual.
+		    Uso más eficiente de la memoria.
+		    No hay límite en el grado de multiprogramación.
+
+
+		Desventajas:
+
+		    El número de tablas y la sobrecarga del procesador para gestionar las interrupciones de página son mayores que en el caso de las técnicas simples de gestión de paginación.
+
+
+	Algoritmo de sustitución de páginas/Page Replacement Algorithm:
+
+		Los algoritmos de reemplazo de páginas son las técnicas mediante las cuales un sistema operativo decide qué páginas de memoria intercambiar o escribir en disco cuando es necesario asignar una página de memoria. 
+
+		El cambio de páginas se produce cuando se produce un fallo de página y no se puede utilizar una página libre para la asignación debido a que no hay páginas disponibles o a que el número de páginas libres es inferior al de páginas necesarias.
+
+		Cuando la página que fue seleccionada para ser reemplazada y paginada, es referenciada de nuevo, tiene que ser leída desde el disco, y esto requiere que la E/S se complete. 
+
+		Este proceso determina la calidad del algoritmo de reemplazo de páginas: 
+
+			cuanto menor sea el tiempo de espera de paginación, mejor será el algoritmo.
+
+		Un algoritmo de reemplazo de páginas mira la información limitada sobre el acceso a las páginas proporcionada por el hardware, e intenta seleccionar qué páginas deben ser reemplazadas para minimizar el número total de páginas perdidas, mientras lo equilibra con los costes de almacenamiento primario y tiempo de procesador del propio algoritmo. 
+
+		Existen muchos algoritmos diferentes de sustitución de páginas. 
+
+		Evaluamos un algoritmo ejecutándolo en una cadena determinada de referencias de memoria y calculando el número de fallos de página.
+
+
+	Cadena de referencias/Reference String:
+
+		La cadena de referencias de memoria se denomina cadena de referencias. 
+
+		Las cadenas de referencias se generan artificialmente o rastreando un sistema determinado y registrando la dirección de cada referencia de memoria. 
+
+		Esta última opción produce un gran número de datos, donde observamos dos cosas.
+
+		    Para un tamaño de página dado, tenemos que considerar sólo el número de página, no la dirección completa.
+
+		    Si tenemos una referencia a una página p, entonces cualquier referencia inmediatamente siguiente a la página p nunca causará un fallo de página. 
+
+		    La página p estará en memoria después de la primera referencia; las referencias inmediatamente siguientes no producirán fallos.
+
+		    Por ejemplo, considere la siguiente secuencia de direcciones - 123,215,600,1234,76,96
+
+		    Si el tamaño de página es 100, entonces la cadena de referencia es 1,2,6,12,0,0
+
+
+	Algoritmo FIFO/First In First Out (FIFO) algorithm (primero en entrar, primero en salir):
+
+	    La página más antigua de la memoria principal es la que se selecciona para ser reemplazada.
+
+	    Fácil de implementar, mantenga una lista, reemplace las páginas de la cola y añada nuevas páginas en la cabecera.
+
+
+	Algoritmo de página óptima/Optimal Page algorithm:
+
+	    Un algoritmo de sustitución de páginas óptimo tiene la tasa de fallos de página más baja de todos los algoritmos. 
+
+	    Existe un algoritmo de sustitución de páginas óptimo, que se denomina OPT o MIN.
+
+	    Sustituye la página que no se va a utilizar durante más tiempo.
+
+	    Utilizar el tiempo en el que se va a utilizar una página.
+
+
+	Algoritmo de uso menos reciente (LRU)/Least Recently Used (LRU) algorithm:
+
+    	La página que no se ha utilizado durante más tiempo en la memoria principal es la que se seleccionará para su sustitución.
+
+    	Fácil de implementar, mantiene una lista, reemplaza las páginas mirando hacia atrás en el tiempo.
+
+
+	Algoritmo de búfer de página/Page Buffering algorithm:
+
+	    Para que un proceso arranque rápidamente, mantenga un pool de frames libres.
+
+	    En caso de fallo de página, seleccione una página para reemplazarla.
+
+	    Escriba la nueva página en el marco del pool libre, marque la tabla de páginas y reinicie el proceso.
+
+	    Ahora escriba la página sucia fuera del disco y coloque el marco que contiene la página reemplazada en el pool libre.
+
+
+	Algoritmo de uso menos frecuente (LFU)/Least frequently Used(LFU) algorithm:
+
+	    La página con el recuento más pequeño es la que se seleccionará para la sustitución.
+
+	    Este algoritmo sufre la situación en la que una página se utiliza mucho durante la fase inicial de un proceso, pero luego no se vuelve a utilizar.
+
+
+	Algoritmo de uso más frecuente (MFU)/Most frequently Used(MFU) algorithm:
+
+	    Este algoritmo se basa en el argumento de que la página con el recuento más bajo probablemente se acaba de introducir y aún no se ha utilizado.
+
+
+
+|| I/O Hardware (entrada y salida);
+
+
+
+
+
+
+
+
