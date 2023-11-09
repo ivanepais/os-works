@@ -14,32 +14,261 @@
 
 	Los sistemas operativos de móviles más populares de escritorio son Android y iOS. 
 
-	Hoy en día, los sistemas operativos se encuentran en casi todos los dispositivos, como teléfonos móviles, computadoras personales, computadoras centrales, automóviles, televisores. , juguetes, etc.
-
+	Hoy en día, los sistemas operativos se encuentran en casi todos los dispositivos, como teléfonos móviles, computadoras personales, computadoras centrales, automóviles, televisores, etc. 
 
 
 || Arquitectura de un Sistema Operativo
 	
 	Hardware: 
 
+		Equipo o soporte físico se refiere a las partes físicas, tangibles, de un sistema informático, sus componentes eléctricos, electrónicos y electromecánicos, componen el hardware o soporte físico; contrariamente al soporte lógico e intangible llamado software. 
+
+
 		CPU: 
+
+			Central Processing Unit o unidad central de procesamiento, es un procesador que interpreta las instrucciones de un programa informático mediante la realización de las operaciones básicas aritméticas, lógicas, y externas (procedentes de la unidad de entrada/salida).
 
 
 		RAM: 
 
+			Random-access memory o memoria de acceso aleatorio, es una memoria de almacenaje a corto plazo que utiliza el sistema operativo para guardar de forma temporal todos los programas y sus procesos de ejecución. 
 
-		I/O 
+
+		I/O: 
+
+			input/output o periférico de entrada/salida, es un dispositivo capaz de interactuar con los elementos externos a ese sistema de forma bidireccional, es decir, que permite tanto que sea ingresada información desde un sistema externo, como emitir información a partir de ese sistema. 
+
+			Se utiliza para ingresar (E) datos a la computadora, y luego de ser procesados por la unidad central de procesamiento (CPU), genera la salida (S) de información.
+
+			Su función es leer o grabar, permanente o virtualmente, todo aquello que se haga con la computadora, para que pueda ser utilizado por los usuarios u otros sistemas.
 
 
 	Software: 
 
-		Sistema Operativo: 
+		Logicial o soporte lógico al sistema formal de un sistema informático, que comprende el conjunto de los componentes lógicos necesarios que hace posible la realización de tareas específicas, en contraposición a los componentes físicos que son llamados hardware.
+
+		La interacción entre el software y el hardware hace operativo un ordenador (u otro dispositivo), es decir, el software envía instrucciones que el hardware ejecuta, haciendo posible su funcionamiento. 
+
+		El software, en su gran mayoría, está escrito en lenguajes de programación de alto nivel, ya que son más fáciles y eficientes para que los programadores los usen, porque son más cercanos al lenguaje natural respecto del lenguaje de máquina.
+
+		Los lenguajes de alto nivel se traducen a lenguaje de máquina utilizando un compilador o un intérprete, o bien una combinación de ambos. 
+
+		El software también puede estar escrito en lenguaje ensamblador, que es de bajo nivel y tiene una alta correspondencia con las instrucciones de lenguaje máquina; se traduce al lenguaje de la máquina utilizando un ensamblador. 
+
+
+		Sistema Operativo:
+
+			Es el conjunto de programas de un sistema informático que gestiona los recursos del hardware y provee servicios a los programas de aplicación de software. 
+
+			Estos programas se ejecutan en modo privilegiado respecto de los restantes.
+
+			Uno de los propósitos del sistema operativo que gestiona el núcleo intermediario consiste en gestionar los recursos de localización y protección de acceso del hardware, hecho que alivia a los programadores de aplicaciones de tener que tratar con estos detalles.
 
 
 		Software del Sistema: 
 
+			Es el conjunto de instrucciones que permiten el manejo de la computadora. Una computadora sin software de sistema se hace inmanejable.
+
+			Consiste en un software que sirve de soporte o base para controlar e interactuar con el hardware y otros programas; en contraposición del llamado software de aplicación. 
+
+			Como ejemplos tenemos los sistemas operativos y los controladores. 
+
+			Estos programas realizan diversas tareas, como la transferencia de datos entre la memoria RAM y los dispositivos de almacenamiento (disco rígido, unidades de discos ópticos, etc), entre otros.
+
+				Sistemas operativos (y sus componentes, muchos de los cuales pueden considerarse como software de sistema).
+			    
+			    Controladores de dispositivos: 
+
+			    	O drivers, es un programa informático que permite al sistema operativo interactuar con un periférico, haciendo una abstracción del hardware y proporcionando una interfaz (posiblemente estandarizada) para utilizar el dispositivo.
+
+
+			    Herramientas de programación: 
+
+			    	Compiladores: 
+
+			    		es un programa que traduce código escrito en un lenguaje de programación (llamado fuente) a otro lenguaje (conocido como objeto).
+
+			    		En este tipo de traductor el lenguaje fuente es generalmente un lenguaje de alto nivel y el objeto un lenguaje de bajo nivel, como assembly o código máquina.
+
+			    		Este proceso de traducción se conoce como compilación.
+
+
+			    	Ensambladores:  
+
+			    		Programa informático que se encarga de traducir un fichero fuente escrito en un lenguaje ensamblador, a un fichero objeto que contiene código máquina, ejecutable directamente por el microprocesador. 
+
+			    		El programa lee el fichero escrito en lenguaje ensamblador y sustituye cada uno de los códigos nemotécnicos que aparecen por su código de operación correspondiente en sistema binario para la plataforma que se eligió como destino en las opciones específicas del ensamblador. 
+
+
+			    	Enlazadores: 
+
+			    		o linker, es un programa que toma los objetos generados en los primeros pasos del proceso de compilación, la información de todos los recursos necesarios (biblioteca), quita aquellos recursos que no necesita, y enlaza el código objeto con su(s) biblioteca(s) con lo que finalmente produce un fichero ejecutable o una biblioteca. 
+
+			    		En el caso de los programas enlazados dinámicamente, el enlace entre el programa ejecutable y las bibliotecas se realiza en tiempo de carga o ejecución del programa. 
+
+
+			    Programas utilitarios:
+
+			    	Son herramientas que realizan:
+
+			    		Tareas de mantenimiento.
+
+    					Soporte para la construcción y ejecución de programas.
+
+    					Tareas en general.
+    					
+    					consultas.
+
+					En donde se incluyen las bibliotecas de sistema, middleware (), herramientas de desarrollo y demás.
+
+					Entre ellas podemos nombrar cifrado y descifrado de archivos, compresión de archivos, desfragmentación de disco, editores de texto, respaldo, etc. 
+			    	
+
+					Middleware: 
+
+						Lógica de intercambio de información entre aplicaciones (interlogical) o agente intermedio, es un sistema de software que ofrece servicios y funciones comunes para las aplicaciones. 
+
+						En general, el middleware se encarga de las tareas de gestión de datos, servicios de aplicaciones, mensajería, autenticación y gestión de API
+
+						Es un software que asiste a una aplicación para interactuar o comunicarse con otras aplicaciones, o paquetes de programas, redes, hardware o sistemas operativos. Este simplifica el trabajo de los programadores en la compleja tarea de generar las conexiones y sincronizaciones que son necesarias en los sistemas distribuidos.
+
+						Funciona como una capa de abstracción de software distribuida, que se sitúa entre las capas de aplicaciones y las capas inferiores (sistema operativo y red). 
+
+						El middleware abstrae de la complejidad y heterogeneidad de las redes de comunicaciones subyacentes, así como de los sistemas operativos y lenguajes de programación, proporcionando una API para la fácil programación y manejo de aplicaciones distribuidas.
+
+
+					Biblioteca: 
+
+						Librería o library, es un conjunto de implementaciones funcionales, codificadas en un lenguaje de programación, que ofrece una interfaz bien definida para la funcionalidad que se invoca.
+
+						A diferencia de un programa ejecutable, el comportamiento que implementa una biblioteca no espera ser utilizada de forma autónoma (un programa sí: tiene un punto de entrada principal), sino que su fin es ser utilizada por otros programas, independientes y de forma simultánea.
+
+
+			    Entorno de escritorio / Interfaz gráfica de usuario (que pueden incluir un gestor de ventanas):
+
+			    	Es un conjunto de software para ofrecer al usuario de una computadora una interacción amigable y cómoda. 
+
+			    	Es una implementación de interfaz gráfica de usuario que ofrece facilidades de acceso y configuración, como barras de herramientas e integración entre aplicaciones con habilidades como arrastrar y soltar.
+
+			    	Suelen ser usados típica e históricamente en sistemas operativos basados en Unix, como por ejemplo las distribuciones Linux. 
+
+			    	Un entorno de escritorio por lo general consta de iconos, ventanas, barras de herramientas, administrador de archivos, fondos de pantalla y widgets de escritorio.
+
+			    	Una interfaz gráfica de usuario es un programa informático que actúa de interfaz de usuario, utilizando un conjunto de imágenes y objetos gráficos para representar la información y acciones disponibles en la interfaz. 
+
+			    	Su principal uso consiste en proporcionar un entorno visual sencillo para permitir la comunicación con el sistema operativo de una máquina o computador.
+
+					Habitualmente las acciones se realizan mediante manipulación directa, para facilitar la interacción del usuario con la computadora. 
+
+					Surge como evolución de las interfaces de línea de comandos que se usaban para operar los primeros sistemas operativos y es pieza fundamental en un entorno gráfico.
+
+
+			    Línea de comandos:
+
+			    	Es un tipo de interfaz de usuario de computadora que permite a los usuarios dar instrucciones a algún programa informático o al sistema operativo por medio de una línea de texto simple. 
+
+			    	Debe notarse que los conceptos de CLI, shell y emulador de terminal no son lo mismo ya que CLI se refiere al paradigma, mientras que un shell o un emulador de terminal son programas informáticos específicos, que usualmente en conjunto implementan la CLI. 
+
+			    	Sin embargo, los tres suelen utilizarse como sinónimos. 
+
+
+			    BIOS:
+
+			    	aistema básico de entrada-salida o BIOS -Basic Input/Output System- es un estándar de facto que define la interfaz de firmware para computadoras IBM PC compatibles. 
+
+			    	También es conocido como BIOS del sistema, ROM BIOS y BIOS de PC. 
+
+			    	El nombre se originó en 1975, en el BIOS usado por el sistema operativo CP/M.
+
+					El firmware del BIOS es instalado dentro de la computadora personal (PC), y es el primer programa que se ejecuta cuando se enciende la computadora.
+
+					El propósito fundamental del BIOS es iniciar, y probar el hardware del sistema y cargar un gestor de arranque o un sistema operativo desde un dispositivo de almacenamiento de datos. 
+
+					Además, el BIOS provee una capa de abstracción para el hardware, por ejemplo, que consiste en una vía para que los programas de aplicaciones y los sistemas operativos interactúen con el teclado, el monitor y otros dispositivos de entrada/salida.
+
+					Las variaciones que ocurren en el hardware del sistema quedan ocultas por el BIOS, ya que los programas usan servicios de BIOS en lugar de acceder directamente al hardware. 
+
+					Los sistemas operativos modernos ignoran la capa de abstracción provista por el BIOS y acceden al hardware directamente.
+
+
+				UEFI: 
+
+					Es una especificación que define una interfaz entre el sistema operativo y el firmware. 
+
+					UEFI reemplaza la antigua interfaz del Sistema Básico de Entrada y Salida (BIOS) estándar presentado en las computadoras personales IBM PC como IBM PC ROM BIOS.
+
+					La Extensible Firmware Interface (EFI, lit. «interfaz de firmware extensible») fue desarrollada inicialmente por Intel en el 2002. 
+
+					La UEFI puede proporcionar menús gráficos adicionales e incluso proporcionar acceso remoto para la solución de problemas o mantenimiento. 
+
+					Las especificaciones de la UEFI permiten ofrecer un controlador (driver) de dispositivo independiente del procesador denominado UEFI Byte Code o simplemente UBC.
+
+					Gracias a esto, se permite soporte para la carga de gráficos, red, sonido y opciones avanzadas del sistema, sin haber precargado el sistema operativo en cuestión. 
+
+					Esto era totalmente imposible en el BIOS, ya que cargaba funciones muy limitadas y necesarias, como el soporte de periféricos, por ejemplo, teclado y ratón. 
+
+
+
+			    Hipervisores:
+
+			    	o monitor de máquina virtual (virtual machine monitor) es una capa de software para realizar una virtualización de hardware que permite utilizar, al mismo tiempo, diferentes sistemas operativos (sin modificar o modificados, en el caso de paravirtualización) en una misma computadora.
+
+			    	Es una extensión de un término anterior, «supervisor», que se aplicaba a los kernels de los sistemas operativos de computadora. 
+
+			    	El hipervisor se basa en el concepto de la virtualización, el cual hace referencia a las tecnologías que permiten abstraer las cualidades físicas de un sistema para poder simular el funcionamiento de varias computadoras sobre un hardware:
+
+
+		    		Virtualización completa, Virtualización de hardware o Virtualización nativa: 
+
+		    			El hipervisor simula un hardware suficiente para permitir un sistema operativo no adaptado que es ejecutado de forma aislada.
+
+		    			​A veces estos sistemas son asistidos por el hardware aprovechando instrucciones incorporadas a las nuevas generaciones de microprocesadores como las VT-x de Intel o AMD-V de AMD para ejecutar el hipervisor en el máximo nivel de acceso a la CPU (Anillo -1) y los invitados se ejecutan a un nivel inferior (Anillo 0). 
+
+		    			De esta forma el hipervisor no tiene que emular el anillo 0 para el sistema operativo huésped.
+
+
+		    		Virtualización parcial o paravirtualización:
+
+		    			El hipervisor ofrece una interfaz especial para acceder a los recursos.
+
+		    			Esto obliga a que el sistema operativo de la máquina virtual tenga que adaptarse usando llamadas especiales (hypercalls). 
+
+		    			Es lo que usan Denali, User Mode Linux (en él el núcleo del sistema operativo se transforma en una aplicación a nivel de usuario que emula el hardware y hace de hipervisor).
+
+
+		    		Emulación: 	
+
+		    			El hipervisor imita o suplanta vía software una arquitectura al completo (procesador, memoria, conjunto de instrucciones, comunicaciones...). 
+
+		    			De esta forma puede hacer creer a los programas y sistemas operativos diseñados para una arquitectura concreta que son ejecutados sobre ella. 
+
+		    			De esta forma se puede emular cualquier máquina antigua o futura, permitiendo diseñar, implementar y probar software sobre estas arquitecturas sin la necesidad de disponer de ellas realmente. 
+
+		    			Por otro lado la emulación suele ofrecer un rendimiento bastante bajo debido a que hay que realizar un proceso completo de traducción.
+
+		    			Ejemplos de estos sistemas son Bochs (emula CPU's, dispositivos de E/S y BIOS), MAME (emula máquinas recreativas antiguas), QEMU (emula un sistema operativo dentro de otro), Microsoft Virtual PC y Wine (este software emula partes de un sistema operativo aunque el código nativo se ejecuta directamente en el procesador, de ahí que su nombre de las siglas de Wine Is Not an Emulator).
+
+
+			    Bootloaders (gestores de arranque):
+
+			    	o cargador de arranque, programa que se llama al final del proceso de arranque para cargar en memoria el núcleo de un sistema operativo y cederle el control de la máquina.
+
+					Para sistemas BIOS es prácticamente obligatorio su uso debido al pequeño tamaño disponible en la MBR para lanzar directamente el kernel. 
+
+					Con firmware UEFI se podría lanzar directamente el kernel pero se usan debido a la versatilidad de opciones que ofrece la carga indirecta a través del cargador de arranque.
+
+					La Especificación Multiboot ha establecido una forma estándar en la que los cargadores de arranque lancen kernels de un sistema operativo de arquitectura x86.
+
+					Esta especificación la cumplen por ejemplo Solaris, NetBSD, GNU/Hurd. 
+
+					No la cumplen por ejemplo Linux y Windows. 
+
 
 		Applicaciones para el usuario: 
+
+			Es un tipo de software de computadora diseñado para realizar un grupo de funciones, tareas o actividades coordinadas para el beneficio del usuario.
+
+			Ejemplos de una aplicación —en ocasiones se usa el acortamiento inglés app, de application— serían un procesador de textos, una hoja de cálculo, una aplicación de contabilidad, un navegador web, un reproductor multimedia, etc. 
 
 
 	La idea es que los usuarios de una computadora interactuen con el sistema operativo para que sea facil de usar. 
