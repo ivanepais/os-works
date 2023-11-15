@@ -130,7 +130,9 @@
 
 						En general, el middleware se encarga de las tareas de gestión de datos, servicios de aplicaciones, mensajería, autenticación y gestión de API
 
-						Es un software que asiste a una aplicación para interactuar o comunicarse con otras aplicaciones, o paquetes de programas, redes, hardware o sistemas operativos. Este simplifica el trabajo de los programadores en la compleja tarea de generar las conexiones y sincronizaciones que son necesarias en los sistemas distribuidos.
+						Es un software que asiste a una aplicación para interactuar o comunicarse con otras aplicaciones, o paquetes de programas, redes, hardware o sistemas operativos.
+
+						 Este simplifica el trabajo de los programadores en la compleja tarea de generar las conexiones y sincronizaciones que son necesarias en los sistemas distribuidos.
 
 						Funciona como una capa de abstracción de software distribuida, que se sitúa entre las capas de aplicaciones y las capas inferiores (sistema operativo y red). 
 
@@ -174,7 +176,7 @@
 
 			    BIOS:
 
-			    	aistema básico de entrada-salida o BIOS -Basic Input/Output System- es un estándar de facto que define la interfaz de firmware para computadoras IBM PC compatibles. 
+			    	Sistema básico de entrada-salida o BIOS -Basic Input/Output System- es un estándar de facto que define la interfaz de firmware para computadoras IBM PC compatibles. 
 
 			    	También es conocido como BIOS del sistema, ROM BIOS y BIOS de PC. 
 
@@ -206,7 +208,6 @@
 					Gracias a esto, se permite soporte para la carga de gráficos, red, sonido y opciones avanzadas del sistema, sin haber precargado el sistema operativo en cuestión. 
 
 					Esto era totalmente imposible en el BIOS, ya que cargaba funciones muy limitadas y necesarias, como el soporte de periféricos, por ejemplo, teclado y ratón. 
-
 
 
 			    Hipervisores:
@@ -273,8 +274,9 @@
 
 	La idea es que los usuarios de una computadora interactuen con el sistema operativo para que sea facil de usar. 
 
-	El sistema operativo es el que se encargará de interactuar con el hardware de la computadora para resolver tareas complejas.
+	El sistema operativo es el que se encargará de interactuar con el hardware de la computadora para resolver operaciones (lógicas, matemáticas, etc.) y tareas complejas.
 
+	Así como los usuarios interactúan con las aplicaciones del sistema, las capas superiores interactúan con las inferiores. 
 
 
 || Generaciones de Sistemas Operativos 
@@ -388,7 +390,7 @@
 
 	En un entorno multiprogramación, el sistema operativo decide qué proceso obtiene el procesador, cuándo y durante cuánto tiempo. 
 
-	Esta función se denomina programación de procesos. 
+	Esta función se denomina programación de procesos (process scheduling). 
 
 	Un sistema operativo realiza las siguientes actividades para la gestión del procesador
 
@@ -430,7 +432,7 @@
 
 	    Realiza un seguimiento de la información, ubicación, usos, estado, etc. 
 
-	    Las instalaciones colectivas se conocen a menudo como sistema de archivos.
+	    Se lo conoce a menudo como sistema de archivos.
 
 	    Decide quién obtiene los recursos.
 
@@ -454,14 +456,14 @@
 		Registro de los retrasos entre la solicitud de un servicio y la respuesta del sistema.
 
 
-	Contabilidad de trabajos: 
+	Contabilidad de tareas (job accounting): 
 
 		Llevar un registro del tiempo y los recursos utilizados por los distintos trabajos y usuarios.
 
 
 	Ayudas para la detección de errores:
 
-		Producción de volcados, trazas, mensajes de error y otras ayudas para la depuración y detección de errores.
+		Producción de volcados (dumps), trazas, mensajes de error y otras ayudas para la depuración y detección de errores.
 
 
 	Coordinación entre otros programas y usuarios:
@@ -598,7 +600,7 @@
 		    Llevar un registro de qué partes de la memoria están siendo utilizadas actualmente y por quién.
 
 		    Decidir qué procesos cargar cuando haya espacio de memoria disponible.
-		    d
+		    
 		    Asignar y desasignar espacio de memoria según sea necesario.
 
 
@@ -632,7 +634,7 @@
 
 		    La gestión de la seguridad se refiere a un mecanismo para controlar el acceso de programas, procesos o usuarios a los recursos definidos por un ordenador controles que deben imponerse, junto con algunos medios de aplicación.
 
-		Por ejemplo, el hardware de direccionamiento de memoria garantiza que un proceso sólo pueda ejecutarse dentro de su propio espacio de direcciones. 
+		Por ejemplo, el hardware de direccionamiento de memoria (memory addressing) garantiza que un proceso sólo pueda ejecutarse dentro de su propio espacio de direcciones. 
 
 		El temporizador garantiza que ningún proceso pueda hacerse con el control de la CPU sin renunciar a él. 
 
@@ -778,6 +780,7 @@
 		    Si falla un sitio en un sistema distribuido, los demás sitios pueden seguir funcionando.
 
 		    Mejor servicio a los clientes.
+
 		    Reducción de la carga del ordenador central.
 
 		    Reducción de los retrasos en el procesamiento de datos.
@@ -868,7 +871,8 @@
 
 	    Detección de errores.
 
-	    Asignación de recursos
+	    Asignación de recursos.
+
 	    Protección.
 
 
@@ -1073,7 +1077,7 @@
 
 		Diagrama de flujo: 
 
-			Todas las aplicaciones o programas se juntan en un proceso y el sistema operativo lo carga al CPU. 
+			Todas las aplicaciones o programas del OS se cargan al CPU. 
 
 
 		Un programa que se carga en memoria y se está ejecutando se conoce comúnmente como proceso.
@@ -1102,7 +1106,7 @@
 
 		Diagrama de flujo: 
 
-			Las tareas se aplican a la espera de que el sistema operativo las ejecute. Deja espacio libre para las entrantes. 	
+			Las tareas se apilan para que el sistema operativo las ejecute. Deja espacio libre para las entrantes o redistribuye la memoria. 	
 
 
 		Actividades relacionadas con la multiprogramación:
@@ -1521,7 +1525,9 @@
 
 		Su objetivo principal es aumentar el rendimiento del sistema de acuerdo con el conjunto de criterios elegidos. 
 
-		Es el cambio del estado listo al estado en ejecución del proceso. El programador de la CPU selecciona un proceso entre los que están listos para ejecutarse y asigna la CPU a uno de ellos.
+		Es el cambio del estado listo al estado en ejecución del proceso. 
+
+		El programador de la CPU selecciona un proceso entre los que están listos para ejecutarse y asigna la CPU a uno de ellos.
 
 		Los planificadores a corto plazo, también conocidos como despachadores, deciden qué proceso se ejecutará a continuación. 
 
@@ -1748,7 +1754,6 @@
 
 
 || Multiproceso/Multi-Threading
-
 
 	Un hilo es un flujo de ejecución a través del código del proceso, con su propio contador de programa que mantiene la pista de qué instrucción ejecutar a continuación, registros de sistema que mantienen sus variables de trabajo actuales, y una pila que contiene el historial de ejecución.
 
@@ -2385,6 +2390,7 @@
     	E/S síncrona: 
 
     		En este esquema la ejecución de la CPU espera mientras la E/S procede
+
 
     	E/S asíncrona: 
 
